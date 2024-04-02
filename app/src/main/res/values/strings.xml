@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">NOW SOPT Android</string>
+    <!--    로그인 화면-->
+    <string name="login_title_top">Wellcome to Sopt!</string>
+    <string name="login_id_text">ID</string>
+    <string name="login_id_hint">아이디를 입력해 주세요</string>
+    <string name="login_password_text">비밀번호</string>
+    <string name="login_password_hint">비밀번호를 입력해 주세요</string>
+    <string name="login_btn_text">로그인 하기</string>
+    <string name="login_sign_up_under_bar"><u>회원가입</u></string>
 </resources>

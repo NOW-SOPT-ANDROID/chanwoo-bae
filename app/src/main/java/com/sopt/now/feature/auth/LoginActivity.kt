@@ -4,8 +4,7 @@ import com.sopt.now.R
 import com.sopt.now.core.base.BindingActivity
 import com.sopt.now.databinding.ActivityMainBinding
 
-class LoginActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
+class LoginActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_login) {
     override fun initView() {
-        TODO("Not yet implemented")
     }
 }
