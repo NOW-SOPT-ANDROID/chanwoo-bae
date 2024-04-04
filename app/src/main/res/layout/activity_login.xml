@@ -42,7 +42,6 @@
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/tv_login_id" />
 
-
         <TextView
             android:id="@+id/tv_login_pwd"
             android:layout_width="wrap_content"
@@ -61,19 +60,23 @@
             android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@+id/tv_login_pwd" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
+            android:backgroundTint="@color/primary"
+            android:paddingVertical="14dp"
             android:text="@string/login_btn_text"
+            android:textColor="@color/white"
             android:textSize="15sp"
+            app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tv_login_sign_in"
+            android:id="@+id/tv_login_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
