@@ -3,7 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <!--    main color-->
-    <color name="primary">#4880EE</color>
+    <color name="primary">#FF4880EE</color>
+    <color name="error">#FFFF5E5E</color>
     <!--    gray scale-->
     <color name="gray_1">#FFF6F6F7</color>
 </resources>
