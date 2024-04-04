@@ -47,21 +47,21 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun handleLoginState(userData: User?) = with(binding) {
         if (userData == null) {
-            toast("회원가입을 먼저해주세요.")
+            toast(getString(R.string.login_first_sign_up_null))
             return
         }
         when {
             userData.id != etLoginId.text.toString() -> {
-                snackBar(root, "id가 일치하지 않습니다.")
+                snackBar(root, getString(R.string.login_not_id_equal))
             }
 
             userData.password != etLoginPwd.text.toString() -> {
-                snackBar(root, "pwd가 일치하지 않습니다.")
+                snackBar(root, getString(R.string.login_not_pwed_equal))
             }
 
             else -> {
                 navigateToMainActivity(userData)
-                toast("로그인이 완료 되었습니다.")
+                toast(getString(R.string.login_completed))
             }
         }
     }
