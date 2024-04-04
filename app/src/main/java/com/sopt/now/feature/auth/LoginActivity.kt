@@ -69,6 +69,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun navigateToMainActivity(userData: User) {
         val intent = MainActivity.createIntent(this@LoginActivity, userData)
         startActivity(intent)
+        finish()
     }
 
     private fun initSignUpBtnClickListener() {
