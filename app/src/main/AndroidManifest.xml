@@ -13,7 +13,7 @@
         android:theme="@style/Theme.NOWSOPTAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".feature.MainActivity"
+            android:name=".feature.auth.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +22,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".feature.auth.SignUpActivity"
+            android:name=".feature.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".feature.auth.LoginActivity"
-            android:exported="false" />
+            android:name=".feature.auth.SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
