@@ -8,4 +8,10 @@
     <string name="login_password_hint">비밀번호를 입력해 주세요</string>
     <string name="login_btn_text">로그인 하기</string>
     <string name="login_sign_up_under_bar"><u>회원가입</u></string>
+    <!--    회원가입 화면-->
+    <string name="sign_up_snack_message">%s는 %d~%d 자로 입력해주세요.</string>
+    <string name="sign_up_nickname_text">닉네임</string>
+    <string name="sign_up_mbti_text">MBTI</string>
+    <string name="sign_up_nickname_snack_message">닉네임은 %d자 이상으로 입력해주세요.</string>
+    <string name="sign_up_mbti_snack_message">MBTI는 %d자 입니다.</string>
 </resources>
