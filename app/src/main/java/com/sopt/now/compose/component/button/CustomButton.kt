@@ -17,15 +17,15 @@ import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 @Composable
 fun CustomButton(
     text: String,
+    modifier: Modifier = Modifier,
     buttonColor: Color,
     textColor: Color,
     onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+        modifier = modifier
+            .fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(containerColor = buttonColor),
         shape = RoundedCornerShape(12.dp)
     ) {

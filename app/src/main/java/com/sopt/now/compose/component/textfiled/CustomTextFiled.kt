@@ -4,8 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,11 +17,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 @Composable
 fun CustomTextField(
@@ -36,39 +38,37 @@ fun CustomTextField(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTextFieldWithTitle(
     title: String,
-    hint: String
+    hint: String,
+    input: String,
+    onInputChange: (String) -> Unit
 ) {
-    var text by remember { mutableStateOf("") }
-
     Column(
-        modifier = Modifier.padding(vertical = 20.dp),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 10.dp)
     ) {
         Text(
             text = title,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontSize = 16.sp
         )
-        TextField(
+        OutlinedTextField(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp),
-            value = text,
-            onValueChange = { text = it },
+                .fillMaxWidth(),
+            value = input,
+            onValueChange = { onInputChange(it) },
             label = { Text(hint) },
-            singleLine = true
+            singleLine = true,
+            shape = RoundedCornerShape(25.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = Color(0xFF7AEBA8.toInt()),
+                focusedBorderColor = Color(0xFF60D5A4.toInt())
+            )
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CustomTextFiledPreview() {
-    NOWSOPTAndroidTheme {
-        CustomTextFieldWithTitle("ID", "이름을 입력해주세요")
     }
 }
