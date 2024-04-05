@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.now.compose.R
+import com.sopt.now.compose.R.drawable.ic_sign_up_profile_person
 import com.sopt.now.compose.component.row.CustomTextRowPair
 import com.sopt.now.compose.component.text.PageTitle
 import com.sopt.now.compose.core.intent.getSafeParcelable
@@ -73,10 +73,10 @@ fun MainScreen(user: User) {
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
+                painter = painterResource(id = ic_sign_up_profile_person),
                 contentDescription = "profile",
                 modifier = Modifier
-                    .size(90.dp)
+                    .size(130.dp)
                     .aspectRatio(1f / 1f)
                     .align(Alignment.CenterHorizontally)
 
