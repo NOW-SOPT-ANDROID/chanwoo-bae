@@ -3,17 +3,29 @@ package com.sopt.now.compose.feature
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sopt.now.compose.R
+import com.sopt.now.compose.component.row.CustomTextRowPair
+import com.sopt.now.compose.component.text.PageTitle
+import com.sopt.now.compose.core.intent.getSafeParcelable
+import com.sopt.now.compose.feature.model.User
+import com.sopt.now.compose.feature.util.KeyStorage
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,42 +33,63 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NOWSOPTAndroidTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    val receivedUserInput = getUserData()
+                    MainScreen(user = receivedUserInput)
                 }
             }
         }
     }
+
+    private fun getUserData() =
+        intent?.getSafeParcelable<User>(name = KeyStorage.USER_INPUT) ?: User(
+            id = "배찬우",
+            password = "12345678",
+            nickName = "bcw",
+            mbti = "infp"
+        )
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Composable
-fun FilledTonalButtonExample(onClick: () -> Unit) {
-    FilledTonalButton(onClick = { onClick() }) {
-        Text("Tonal")
-    }
-}
-
-@Composable
-fun MainScreen() {
-    Column(
+fun MainScreen(user: User) {
+    Scaffold(
         modifier = Modifier
-            .padding(10.dp)
-            .fillMaxSize() // 전체 화면 크기로 채움
-    ) {
-        // Box 내에 원하는 컨텐츠를 추가할 수 있습니다.
-        FilledTonalButtonExample(onClick = {})
+            .padding(20.dp)
+            .fillMaxSize(),
+        topBar = {
+            PageTitle("마이 페이지")
+        }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
+                )
+        ) {
+            Spacer(modifier = Modifier.height(20.dp))
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_background),
+                contentDescription = "profile",
+                modifier = Modifier
+                    .size(90.dp)
+                    .aspectRatio(1f / 1f)
+                    .align(Alignment.CenterHorizontally)
+
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+            CustomTextRowPair(name1 = "아이디", name2 = user.id)
+            Spacer(modifier = Modifier.height(10.dp))
+            CustomTextRowPair(name1 = "비밀번호", name2 = user.password)
+            Spacer(modifier = Modifier.height(10.dp))
+            CustomTextRowPair(name1 = "닉네임", name2 = user.nickName)
+            Spacer(modifier = Modifier.height(10.dp))
+            CustomTextRowPair(name1 = "mbti", name2 = user.mbti)
+        }
     }
 }
 
@@ -64,6 +97,13 @@ fun MainScreen() {
 @Composable
 fun GreetingPreview() {
     NOWSOPTAndroidTheme {
-        MainScreen()
+        MainScreen(
+            user = User(
+                id = "dsfs",
+                password = "dsfsdf",
+                nickName = "df",
+                mbti = "asdf"
+            )
+        )
     }
 }
