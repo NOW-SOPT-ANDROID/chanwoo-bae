@@ -1,6 +1,8 @@
 package com.sopt.now.feature.auth
 
 import android.content.Intent
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -64,5 +66,12 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
             setResult(RESULT_OK, it)
             finish()
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 }
