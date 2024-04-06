@@ -3,22 +3,30 @@ package com.sopt.now.feature.auth
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.sopt.now.R
 import com.sopt.now.core.base.BindingActivity
 import com.sopt.now.core.util.context.snackBar
 import com.sopt.now.core.util.context.toast
 import com.sopt.now.core.util.intent.getSafeParcelable
+import com.sopt.now.core.view.UiState
 import com.sopt.now.databinding.ActivityLoginBinding
 import com.sopt.now.feature.MainActivity
 import com.sopt.now.feature.model.User
 import com.sopt.now.feature.util.KeyStorage
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private val viewModel by viewModels<LoginViewModel>()
 
     override fun initView() {
         initRegisterResultLauncher()
         initBtnClickListener()
+        initSignUpStateObserve()
     }
 
     private fun initRegisterResultLauncher() {
@@ -28,48 +36,24 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                     val receivedUserInput =
                         result.data?.getSafeParcelable<User>(name = KeyStorage.USER_INPUT)
                     if (receivedUserInput != null) {
-                        initLoginBtnClickListener(receivedUserInput)
+                        viewModel.setSavedUserInfo(receivedUserInput)
                     }
                 }
             }
     }
 
     private fun initBtnClickListener() {
-        initLoginBtnClickListener(userData = null)
+        initLoginBtnClickListener()
         initSignUpBtnClickListener()
     }
 
-    private fun initLoginBtnClickListener(userData: User?) {
-        binding.btnLogin.setOnClickListener {
-            handleLoginState(userData)
+    private fun initLoginBtnClickListener() = with(binding) {
+        btnLogin.setOnClickListener {
+            viewModel.setLogin(
+                id = etLoginId.text.toString(),
+                pwd = etLoginPwd.text.toString()
+            )
         }
-    }
-
-    private fun handleLoginState(userData: User?) = with(binding) {
-        if (userData == null) {
-            toast(getString(R.string.login_first_sign_up_null))
-            return
-        }
-        when {
-            userData.id != etLoginId.text.toString() -> {
-                snackBar(root, getString(R.string.login_not_id_equal))
-            }
-
-            userData.password != etLoginPwd.text.toString() -> {
-                snackBar(root, getString(R.string.login_not_pwed_equal))
-            }
-
-            else -> {
-                navigateToMainActivity(userData)
-                toast(getString(R.string.login_completed))
-            }
-        }
-    }
-
-    private fun navigateToMainActivity(userData: User) {
-        val intent = MainActivity.createIntent(this@LoginActivity, userData)
-        startActivity(intent)
-        finish()
     }
 
     private fun initSignUpBtnClickListener() {
@@ -77,5 +61,25 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
             resultLauncher.launch(intent)
         }
+    }
+
+    private fun initSignUpStateObserve() {
+        viewModel.loginState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is UiState.Success -> {
+                    toast(getString(R.string.login_completed))
+                    navigateToMainActivity(state.data)
+                }
+
+                is UiState.Failure -> snackBar(binding.root, state.errorMessage)
+                else -> Unit
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun navigateToMainActivity(userData: User) {
+        val intent = MainActivity.createIntent(this@LoginActivity, userData)
+        startActivity(intent)
+//        finish()
     }
 }
