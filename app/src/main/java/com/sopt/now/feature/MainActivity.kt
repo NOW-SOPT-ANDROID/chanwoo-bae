@@ -11,6 +11,7 @@ import com.sopt.now.core.util.intent.getSafeParcelable
 import com.sopt.now.databinding.ActivityMainBinding
 import com.sopt.now.feature.model.User
 import com.sopt.now.feature.util.KeyStorage
+import com.sopt.now.feature.util.KeyStorage.TOTAL_PRESSED_TIME
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
@@ -24,8 +25,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     }
 
     private fun initReceiveUserData() {
-        val receivedUserInput = intent?.getSafeParcelable<User>(name = KeyStorage.USER_INPUT)
-        if (receivedUserInput != null) {
+        intent?.getSafeParcelable<User>(name = KeyStorage.USER_INPUT)?.let { receivedUserInput ->
             updateUI(receivedUserInput)
         }
     }
