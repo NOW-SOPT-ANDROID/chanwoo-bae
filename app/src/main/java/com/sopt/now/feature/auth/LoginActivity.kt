@@ -68,7 +68,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         viewModel.loginState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> {
-                    toast(getString(R.string.login_completed))
+                    toast(getString(R.string.login_completed, getString(R.string.login)))
                     navigateToMainActivity(state.data)
                 }
 
