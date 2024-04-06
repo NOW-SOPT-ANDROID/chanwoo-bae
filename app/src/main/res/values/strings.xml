@@ -22,4 +22,6 @@
     <string name="sign_up_nickname_input_hint">닉네임을 입력해 주세요</string>
     <string name="sign_up_mbti_input_hint">mbti를 입력해 주세요</string>
     <string name="sign_up_btn">회원가입 하기</string>
+    <!--    메인 화면-->
+    <string name="main_back_once_pressed_exit">한번 더 누르면 종료 합니다.</string>
 </resources>
