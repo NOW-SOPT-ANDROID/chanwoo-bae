@@ -60,7 +60,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun handleBackPressed() {
         val currentTime = System.currentTimeMillis()
-        if (currentTime - backPressedTime <= 2000) {
+        if (currentTime - backPressedTime <= TOTAL_PRESSED_TIME) {
             finish()
         } else {
             backPressedTime = currentTime
