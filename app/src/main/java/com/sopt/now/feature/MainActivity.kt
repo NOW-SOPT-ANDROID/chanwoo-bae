@@ -3,6 +3,7 @@ package com.sopt.now.feature
 import android.content.Context
 import android.content.Intent
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.sopt.now.R
 import com.sopt.now.core.base.BindingActivity
@@ -13,6 +14,8 @@ import com.sopt.now.feature.model.User
 import com.sopt.now.feature.util.KeyStorage
 import com.sopt.now.feature.util.KeyStorage.TOTAL_PRESSED_TIME
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -52,9 +55,9 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun observeBackPressedFlow() {
         lifecycleScope.launch {
-            backPressedFlow.collect {
+            backPressedFlow.flowWithLifecycle(lifecycle).onEach {
                 handleBackPressed()
-            }
+            }.launchIn(lifecycleScope)
         }
     }
 
