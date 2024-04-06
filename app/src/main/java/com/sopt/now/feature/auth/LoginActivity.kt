@@ -35,11 +35,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
-                    val receivedUserInput =
-                        result.data?.getSafeParcelable<User>(name = KeyStorage.USER_INPUT)
-                    if (receivedUserInput != null) {
-                        viewModel.setSavedUserInfo(receivedUserInput)
-                    }
+                    result.data?.getSafeParcelable<User>(name = KeyStorage.USER_INPUT)
+                        ?.let { receivedUserInput ->
+                            viewModel.setSavedUserInfo(receivedUserInput)
+                        }
                 }
             }
     }
