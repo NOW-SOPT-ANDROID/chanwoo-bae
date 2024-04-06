@@ -80,9 +80,11 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun navigateToMainActivity(userData: User) {
-        val intent = MainActivity.createIntent(this@LoginActivity, userData)
-        startActivity(intent)
-//        finish()
+        MainActivity.createIntent(this@LoginActivity, userData).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }.also {
+            startActivity(it)
+        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
