@@ -11,7 +11,8 @@
     <string name="login_first_sign_up_null">회원가입을 먼저해주세요.</string>
     <string name="login_not_id_equal">id가 일치하지 않습니다.</string>
     <string name="login_not_pwed_equal">pwd가 일치하지 않습니다.</string>
-    <string name="login_completed">로그인이 완료 되었습니다.</string>
+    <string name="login_completed">%s이 완료 되었습니다.</string>
+    <string name="login">로그인</string>
     <!--    회원가입 화면-->
     <string name="sign_up_snack_message">%s는 %d~%d 자로 입력해주세요.</string>
     <string name="sign_up_nickname_text">닉네임</string>
@@ -22,6 +23,7 @@
     <string name="sign_up_nickname_input_hint">닉네임을 입력해 주세요</string>
     <string name="sign_up_mbti_input_hint">mbti를 입력해 주세요</string>
     <string name="sign_up_btn">회원가입 하기</string>
+    <string name="sign_up">회원가입</string>
     <!--    메인 화면-->
     <string name="main_back_once_pressed_exit">한번 더 누르면 종료 합니다.</string>
 </resources>

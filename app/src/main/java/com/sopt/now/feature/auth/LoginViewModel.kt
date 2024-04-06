@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.core.view.UiState
 import com.sopt.now.feature.model.User
+import com.sopt.now.feature.util.StringResources
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -37,10 +38,10 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             _loginState.emit(UiState.Loading)
             val newState = when {
-                !isSavedUserInfo() -> UiState.Failure("회원가입을 먼저 진행해주세요.")
-                !idPwdNullValidate(id, pwd) -> UiState.Failure("아이디와 비밀번호를 입력해주세요.")
-                !idValidate(id) -> UiState.Failure("아이디가 일치하지 않습니다.")
-                !pwdValidate(pwd) -> UiState.Failure("비밀번호가 일치하지 않습니다.")
+                !isSavedUserInfo() -> UiState.Failure(StringResources.SIGN_UP_REQUIRED)
+                !idPwdNullValidate(id, pwd) -> UiState.Failure(StringResources.ID_PASSWORD_REQUIRED)
+                !idValidate(id) -> UiState.Failure(StringResources.INVALID_ID)
+                !pwdValidate(pwd) -> UiState.Failure(StringResources.INVALID_PASSWORD)
                 else -> UiState.Success(savedUserInfo.value)
             }
             _loginState.emit(newState)

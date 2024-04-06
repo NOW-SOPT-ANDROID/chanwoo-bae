@@ -46,7 +46,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         viewModel.signUpState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> {
-                    toast("회원가입이 완료되었습니다.")
+                    toast(getString(R.string.login_completed, getString(R.string.sign_up)))
                     navigateToLoginActivity(state.data)
                 }
 
