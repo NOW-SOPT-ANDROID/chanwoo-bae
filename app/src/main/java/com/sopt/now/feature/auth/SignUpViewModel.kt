@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.core.view.UiState
 import com.sopt.now.feature.model.User
+import com.sopt.now.feature.util.StringResources
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -34,10 +35,10 @@ class SignUpViewModel : ViewModel() {
     private fun checkValidateUser() {
         viewModelScope.launch {
             val newState = when {
-                !idValidate() -> UiState.Failure("아이디는 6자 이상 10자 이하로 입력해주세요.")
-                !pwdValidate() -> UiState.Failure("비밀번호는 8자 이상 12자 이하로 입력해주세요.")
-                !nickNameValidate() -> UiState.Failure("닉네임은 1자 이상 입력해주세요.")
-                !mbtiValidate() -> UiState.Failure("MBTI 양식에 맞게 입력해주세요.")
+                !idValidate() -> UiState.Failure(StringResources.ID_ERROR_MESSAGE)
+                !pwdValidate() -> UiState.Failure(StringResources.PASSWORD_ERROR_MESSAGE)
+                !nickNameValidate() -> UiState.Failure(StringResources.NICKNAME_ERROR_MESSAGE)
+                !mbtiValidate() -> UiState.Failure(StringResources.MBTI_ERROR_MESSAGE)
                 else -> UiState.Success(user.value)
             }
             _signUpState.emit(newState)
