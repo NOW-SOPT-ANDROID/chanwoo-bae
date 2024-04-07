@@ -32,7 +32,7 @@
             android:text="@string/login_id_text"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_login_title" />
 
         <EditText
             android:id="@+id/et_login_id"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/login_id_hint"
             android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login_id" />
+            app:layout_constraintTop_toBottomOf="@id/tv_login_id" />
 
         <TextView
             android:id="@+id/tv_login_pwd"
@@ -50,7 +50,7 @@
             android:text="@string/login_password_text"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_login_id" />
+            app:layout_constraintTop_toBottomOf="@id/et_login_id" />
 
         <EditText
             android:id="@+id/et_login_pwd"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/login_password_hint"
             android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login_pwd" />
+            app:layout_constraintTop_toBottomOf="@id/tv_login_pwd" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
@@ -88,7 +88,7 @@
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+            app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
