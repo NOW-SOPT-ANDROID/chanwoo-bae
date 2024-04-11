@@ -28,7 +28,10 @@ class SharedPreferenceDataSourceImpl @Inject constructor(
     }
 
     override fun clear() {
-        sharedPreferences.edit { remove(CHECK_LOGIN) }
+        sharedPreferences.edit {
+            remove(USER_INFO)
+            remove(CHECK_LOGIN)
+        }
     }
 
     companion object {
