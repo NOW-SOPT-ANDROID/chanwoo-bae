@@ -20,7 +20,8 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val getUserInfoUseCase: GetUserInfoUseCase,
-    private val getCheckLoginUseCase: GetCheckLoginUseCase
+    private val getCheckLoginUseCase: GetCheckLoginUseCase,
+    private val saveCheckLoginUseCase: SaveCheckLoginUseCase
 ) : ViewModel() {
     private var _savedUserInfo = MutableStateFlow<UserEntity>(
         UserEntity(
@@ -40,6 +41,10 @@ class LoginViewModel @Inject constructor(
     }
 
     fun isAutoLogin(): Boolean = getCheckLoginUseCase.invoke()
+
+    fun saveCheckLoginSharedPreference(input: Boolean) {
+        saveCheckLoginUseCase.invoke(input)
+    }
 
     fun setSavedUserInfo(input: UserEntity) {
         _savedUserInfo.value = input

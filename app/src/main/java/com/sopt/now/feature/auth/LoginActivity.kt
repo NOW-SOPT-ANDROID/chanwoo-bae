@@ -30,14 +30,14 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private val viewModel by viewModels<LoginViewModel>()
 
     override fun initView() {
-        initIsLoginCheck()
-        initRegisterResultLauncher()
-        initBtnClickListener()
-        initSignUpStateObserve()
-    }
-
-    private fun initIsLoginCheck() {
-        if (viewModel.isAutoLogin()) navigateTo<MainActivity>(this)
+        when (viewModel.isAutoLogin()) {
+            true -> navigateTo<MainActivity>(this)
+            false -> {
+                initRegisterResultLauncher()
+                initBtnClickListener()
+                initSignUpStateObserve()
+            }
+        }
     }
 
     private fun initRegisterResultLauncher() {
@@ -78,6 +78,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             when (state) {
                 is UiState.Success -> {
                     toast(getString(R.string.login_completed, getString(R.string.login)))
+                    viewModel.saveCheckLoginSharedPreference(true)
                     navigateToMainActivity(state.data)
                 }
 

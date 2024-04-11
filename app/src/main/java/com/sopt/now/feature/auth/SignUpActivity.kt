@@ -49,7 +49,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
             when (state) {
                 is UiState.Success -> {
                     toast(getString(R.string.login_completed, getString(R.string.sign_up)))
-                    saveSharedPreference(state.data)
+                    viewModel.saveUserInfoSharedPreference(state.data.toUserEntity())
                     navigateToLoginActivity(state.data)
                 }
 
@@ -60,13 +60,6 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
-    }
-
-    private fun saveSharedPreference(input: User) {
-        viewModel.apply {
-            saveUserInfoSharedPreference(input.toUserEntity())
-            saveCheckLoginSharedPreference(true)
-        }
     }
 
     private fun navigateToLoginActivity(userInputData: User) {

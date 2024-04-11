@@ -18,8 +18,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val saveUserInfoUseCase: SaveUserInfoUseCase,
-    private val saveCheckLoginUseCase: SaveCheckLoginUseCase
+    private val saveUserInfoUseCase: SaveUserInfoUseCase
 ) : ViewModel() {
 
     private var _user = MutableStateFlow<User>(
@@ -42,10 +41,6 @@ class SignUpViewModel @Inject constructor(
 
     fun saveUserInfoSharedPreference(input: UserEntity) {
         saveUserInfoUseCase.invoke(input)
-    }
-
-    fun saveCheckLoginSharedPreference(input: Boolean) {
-        saveCheckLoginUseCase.invoke(input)
     }
 
     private fun checkValidateUser() {
