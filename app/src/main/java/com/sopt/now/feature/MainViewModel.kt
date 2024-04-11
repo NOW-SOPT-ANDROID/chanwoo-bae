@@ -2,9 +2,9 @@ package com.sopt.now.feature
 
 import androidx.lifecycle.ViewModel
 import com.sopt.now.domain.entity.UserEntity
-import com.sopt.now.domain.usecase.ClearUserInfoUseCase
-import com.sopt.now.domain.usecase.GetUserInfoUseCase
-import com.sopt.now.domain.usecase.SaveCheckLoginUseCase
+import com.sopt.now.domain.usecase.sharedprefusecase.ClearUserInfoUseCase
+import com.sopt.now.domain.usecase.sharedprefusecase.GetUserInfoUseCase
+import com.sopt.now.domain.usecase.sharedprefusecase.SaveCheckLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

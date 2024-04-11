@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.core.view.UiState
 import com.sopt.now.domain.entity.UserEntity
-import com.sopt.now.domain.usecase.SaveCheckLoginUseCase
-import com.sopt.now.domain.usecase.SaveUserInfoUseCase
+import com.sopt.now.domain.usecase.sharedprefusecase.SaveUserInfoUseCase
 import com.sopt.now.feature.model.User
 import com.sopt.now.feature.util.StringResources
 import dagger.hilt.android.lifecycle.HiltViewModel
