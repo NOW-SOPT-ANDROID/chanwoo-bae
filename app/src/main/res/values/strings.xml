@@ -26,4 +26,6 @@
     <string name="sign_up">회원가입</string>
     <!--    메인 화면-->
     <string name="main_back_once_pressed_exit">한번 더 누르면 종료 합니다.</string>
+    <string name="main_logout_under_bar"><u>로그아웃</u></string>
+    <string name="main_clear_user_under_bar"><u>회원탈퇴</u></string>
 </resources>
