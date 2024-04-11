@@ -3,8 +3,12 @@ package com.sopt.now.feature.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.core.view.UiState
-import com.sopt.now.feature.model.User
+import com.sopt.now.domain.entity.UserEntity
+import com.sopt.now.domain.usecase.GetCheckLoginUseCase
+import com.sopt.now.domain.usecase.GetUserInfoUseCase
 import com.sopt.now.feature.util.StringResources
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -12,21 +16,31 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
-    private var _savedUserInfo = MutableStateFlow<User>(
-        User(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val getCheckLoginUseCase: GetCheckLoginUseCase
+) : ViewModel() {
+    private var _savedUserInfo = MutableStateFlow<UserEntity>(
+        UserEntity(
             id = "",
             password = "",
             nickName = "",
             mbti = ""
         )
     )
-    val savedUserInfo: StateFlow<User> get() = _savedUserInfo
+    val savedUserInfo: StateFlow<UserEntity> get() = _savedUserInfo
 
-    private val _loginState = MutableSharedFlow<UiState<User>>()
-    val loginState: SharedFlow<UiState<User>> get() = _loginState.asSharedFlow()
+    private val _loginState = MutableSharedFlow<UiState<UserEntity>>()
+    val loginState: SharedFlow<UiState<UserEntity>> get() = _loginState.asSharedFlow()
 
-    fun setSavedUserInfo(input: User) {
+    init {
+        if (!isAutoLogin()) _savedUserInfo.value = getUserInfoUseCase.invoke()
+    }
+
+    fun isAutoLogin(): Boolean = getCheckLoginUseCase.invoke()
+
+    fun setSavedUserInfo(input: UserEntity) {
         _savedUserInfo.value = input
     }
 
@@ -48,19 +62,15 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    private fun isSavedUserInfo(): Boolean {
-        return savedUserInfo.value.id.isNotEmpty() && savedUserInfo.value.password.isNotEmpty()
-    }
+    private fun isSavedUserInfo(): Boolean =
+        savedUserInfo.value.id.isNotEmpty() && savedUserInfo.value.password.isNotEmpty()
 
-    private fun idPwdNullValidate(id: String, pwd: String): Boolean {
-        return id.isNotEmpty() && pwd.isNotEmpty()
-    }
+    private fun idPwdNullValidate(id: String, pwd: String): Boolean =
+        id.isNotEmpty() && pwd.isNotEmpty()
 
-    private fun idValidate(id: String): Boolean {
-        return id == savedUserInfo.value.id
-    }
+    private fun idValidate(id: String): Boolean =
+        id == savedUserInfo.value.id
 
-    private fun pwdValidate(pwd: String): Boolean {
-        return pwd == savedUserInfo.value.password
-    }
+    private fun pwdValidate(pwd: String): Boolean =
+        pwd == savedUserInfo.value.password
 }
