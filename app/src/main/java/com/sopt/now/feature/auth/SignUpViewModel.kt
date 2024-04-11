@@ -3,8 +3,13 @@ package com.sopt.now.feature.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.core.view.UiState
+import com.sopt.now.domain.entity.UserEntity
+import com.sopt.now.domain.usecase.SaveCheckLoginUseCase
+import com.sopt.now.domain.usecase.SaveUserInfoUseCase
 import com.sopt.now.feature.model.User
 import com.sopt.now.feature.util.StringResources
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -12,7 +17,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
-class SignUpViewModel : ViewModel() {
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
+    private val saveUserInfoUseCase: SaveUserInfoUseCase,
+    private val saveCheckLoginUseCase: SaveCheckLoginUseCase
+) : ViewModel() {
 
     private var _user = MutableStateFlow<User>(
         User(
@@ -32,8 +41,17 @@ class SignUpViewModel : ViewModel() {
         checkValidateUser()
     }
 
+    fun saveUserInfoSharedPreference(input: UserEntity) {
+        saveUserInfoUseCase.invoke(input)
+    }
+
+    fun saveCheckLoginSharedPreference(input: Boolean) {
+        saveCheckLoginUseCase.invoke(input)
+    }
+
     private fun checkValidateUser() {
         viewModelScope.launch {
+            _signUpState.emit(UiState.Loading)
             val newState = when {
                 !idValidate() -> UiState.Failure(StringResources.ID_ERROR_MESSAGE)
                 !pwdValidate() -> UiState.Failure(StringResources.PASSWORD_ERROR_MESSAGE)
