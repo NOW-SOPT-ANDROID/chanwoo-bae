@@ -30,7 +30,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     override fun initView() {
         initBtnClickListener()
-        initUpdateUserDataUi()
+        initUpdateUserDataUI()
         initBackDoublePressed()
     }
 
@@ -60,12 +60,12 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         }
     }
 
-    private fun initUpdateUserDataUi() = with(binding) {
-        viewModel.getSharedPrefUserInfo().let { receivedUserInput ->
-            tvMainIdData.text = receivedUserInput.id
-            tvMainPwdData.text = receivedUserInput.password
-            tvMainNicknameData.text = receivedUserInput.nickName
-            tvMainMbtiData.text = receivedUserInput.mbti
+    private fun initUpdateUserDataUI() = with(binding) {
+        viewModel.getSharedPrefUserInfo().apply {
+            tvMainIdData.text = id
+            tvMainPwdData.text = password
+            tvMainNicknameData.text = nickName
+            tvMainMbtiData.text = mbti
         }
     }
 
