@@ -21,7 +21,7 @@ class SignUpViewModel @Inject constructor(
     private val saveUserInfoUseCase: SaveUserInfoUseCase
 ) : ViewModel() {
 
-    private var _user = MutableStateFlow<User>(
+    private val _user = MutableStateFlow<User>(
         User(
             id = "",
             password = "",
@@ -31,7 +31,7 @@ class SignUpViewModel @Inject constructor(
     )
     val user: StateFlow<User> get() = _user
 
-    private var _signUpState = MutableSharedFlow<UiState<User>>()
+    private val _signUpState = MutableSharedFlow<UiState<User>>()
     val signUpState: SharedFlow<UiState<User>> get() = _signUpState.asSharedFlow()
 
     fun setUser(user: User) {
