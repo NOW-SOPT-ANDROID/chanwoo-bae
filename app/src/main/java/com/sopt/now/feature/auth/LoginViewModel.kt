@@ -23,7 +23,7 @@ class LoginViewModel @Inject constructor(
     private val getCheckLoginUseCase: GetCheckLoginUseCase,
     private val saveCheckLoginUseCase: SaveCheckLoginUseCase
 ) : ViewModel() {
-    private var _savedUserInfo = MutableStateFlow<UserEntity>(
+    private val _savedUserInfo = MutableStateFlow<UserEntity>(
         UserEntity(
             id = "",
             password = "",

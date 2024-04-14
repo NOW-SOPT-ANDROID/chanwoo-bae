@@ -57,21 +57,17 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    private fun idValidate(): Boolean {
-        return user.value.id.length in MIN_ID_LENGTH..MAX_ID_LENGTH
-    }
+    private fun idValidate(): Boolean =
+        user.value.id.length in MIN_ID_LENGTH..MAX_ID_LENGTH
 
-    private fun pwdValidate(): Boolean {
-        return user.value.password.length in MIN_PWD_LENGTH..MAX_PWD_LENGTH
-    }
+    private fun pwdValidate(): Boolean =
+        user.value.password.length in MIN_PWD_LENGTH..MAX_PWD_LENGTH
 
-    private fun nickNameValidate(): Boolean {
-        return user.value.nickName.length >= MIN_NICKNAME_LENGTH
-    }
+    private fun nickNameValidate(): Boolean =
+        user.value.nickName.length >= MIN_NICKNAME_LENGTH
 
-    private fun mbtiValidate(): Boolean {
-        return mbtiRegex.matches(user.value.mbti)
-    }
+    private fun mbtiValidate(): Boolean =
+        mbtiRegex.matches(user.value.mbti)
 
     companion object {
         const val MIN_ID_LENGTH = 6
