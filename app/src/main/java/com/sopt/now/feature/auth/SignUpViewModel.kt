@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.core.view.UiState
 import com.sopt.now.domain.entity.UserEntity
+import com.sopt.now.domain.usecase.regex.MbtiValidationUseCase
 import com.sopt.now.domain.usecase.sharedprefusecase.SaveUserInfoUseCase
 import com.sopt.now.feature.model.User
 import com.sopt.now.feature.util.StringResources
@@ -18,7 +19,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val saveUserInfoUseCase: SaveUserInfoUseCase
+    private val saveUserInfoUseCase: SaveUserInfoUseCase,
+    private val mbtiValidationUseCase: MbtiValidationUseCase
 ) : ViewModel() {
 
     private val _user = MutableStateFlow<User>(
@@ -67,7 +69,7 @@ class SignUpViewModel @Inject constructor(
         user.value.nickName.length >= MIN_NICKNAME_LENGTH
 
     private fun mbtiValidate(): Boolean =
-        mbtiRegex.matches(user.value.mbti)
+        mbtiValidationUseCase.invoke(user.value.mbti)
 
     companion object {
         const val MIN_ID_LENGTH = 6
@@ -75,7 +77,5 @@ class SignUpViewModel @Inject constructor(
         const val MIN_PWD_LENGTH = 8
         const val MAX_PWD_LENGTH = 12
         const val MIN_NICKNAME_LENGTH = 1
-        private const val MBTI_PATTERN = "^[E|Iei][S|Nsn][T|Ftf][J|Pjp]$"
-        private val mbtiRegex = Regex(MBTI_PATTERN)
     }
 }
