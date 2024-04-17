@@ -14,9 +14,11 @@ import com.sopt.now.core.view.UiState
 import com.sopt.now.databinding.ActivitySignUpBinding
 import com.sopt.now.feature.model.User
 import com.sopt.now.feature.util.KeyStorage
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
+@AndroidEntryPoint
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
     private val viewModel by viewModels<SignUpViewModel>()
 
@@ -47,6 +49,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
             when (state) {
                 is UiState.Success -> {
                     toast(getString(R.string.login_completed, getString(R.string.sign_up)))
+                    viewModel.saveUserInfoSharedPreference(state.data.toUserEntity())
                     navigateToLoginActivity(state.data)
                 }
 
