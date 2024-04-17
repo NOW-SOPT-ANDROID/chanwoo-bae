@@ -16,7 +16,6 @@ import com.sopt.now.core.util.intent.getSafeParcelable
 import com.sopt.now.core.util.intent.navigateTo
 import com.sopt.now.core.view.UiState
 import com.sopt.now.databinding.ActivityLoginBinding
-import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.feature.MainActivity
 import com.sopt.now.feature.model.User
 import com.sopt.now.feature.util.KeyStorage
@@ -84,29 +83,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 is UiState.Success -> {
                     toast(getString(R.string.login_completed, getString(R.string.login)))
                     viewModel.saveCheckLoginSharedPreference(true)
-                    navigateToMainActivity(state.data)
+                    navigateTo<MainActivity>(this)
                 }
 
                 is UiState.Failure -> snackBar(binding.root, state.errorMessage)
                 else -> Unit
             }
         }.launchIn(lifecycleScope)
-    }
-
-    private fun navigateToMainActivity(userData: UserEntity) {
-        MainActivity.createIntent(
-            this@LoginActivity,
-            user = User(
-                id = userData.id,
-                password = userData.password,
-                nickName = userData.nickName,
-                mbti = userData.mbti
-            )
-        ).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }.also {
-            startActivity(it)
-        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
