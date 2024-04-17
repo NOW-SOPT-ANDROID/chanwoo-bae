@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -36,11 +37,23 @@ class LoginViewModel @Inject constructor(
     private val _loginState = MutableSharedFlow<UiState<UserEntity>>()
     val loginState: SharedFlow<UiState<UserEntity>> get() = _loginState.asSharedFlow()
 
+    private val _autoLoginState = MutableStateFlow<Boolean>(false)
+    val autoLoginState: StateFlow<Boolean> get() = _autoLoginState.asStateFlow()
+
     init {
-        if (!isAutoLogin()) _savedUserInfo.value = getUserInfoUseCase.invoke()
+        checkAutoLogin()
     }
 
-    fun isAutoLogin(): Boolean = getCheckLoginUseCase.invoke()
+    private fun checkAutoLogin() {
+        viewModelScope.launch {
+            _autoLoginState.value = isAutoLogin()
+            if (!isAutoLogin()) {
+                _savedUserInfo.value = getUserInfoUseCase.invoke()
+            }
+        }
+    }
+
+    private fun isAutoLogin(): Boolean = getCheckLoginUseCase.invoke()
 
     fun saveCheckLoginSharedPreference(input: Boolean) {
         saveCheckLoginUseCase.invoke(input)

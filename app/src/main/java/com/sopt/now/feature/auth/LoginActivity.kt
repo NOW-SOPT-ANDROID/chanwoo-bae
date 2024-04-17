@@ -30,14 +30,19 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private val viewModel by viewModels<LoginViewModel>()
 
     override fun initView() {
-        when (viewModel.isAutoLogin()) {
-            true -> navigateTo<MainActivity>(this)
-            false -> {
-                initRegisterResultLauncher()
-                initBtnClickListener()
-                initSignUpStateObserve()
+        initAutoLoginStateObserve()
+        initRegisterResultLauncher()
+        initBtnClickListener()
+        initSignUpStateObserve()
+    }
+
+    private fun initAutoLoginStateObserve() {
+        viewModel.autoLoginState.flowWithLifecycle(lifecycle).onEach { isAutoLogin ->
+            when (isAutoLogin) {
+                true -> navigateTo<MainActivity>(this@LoginActivity)
+                false -> return@onEach
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun initRegisterResultLauncher() {
