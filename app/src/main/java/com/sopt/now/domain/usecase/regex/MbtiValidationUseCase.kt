@@ -1,6 +1,8 @@
 package com.sopt.now.domain.usecase.regex
 
-class MbtiValidationUseCase {
+import javax.inject.Inject
+
+class MbtiValidationUseCase @Inject constructor() {
     operator fun invoke(mbti: String): Boolean = mbtiRegex.matches(mbti)
 
     companion object {
