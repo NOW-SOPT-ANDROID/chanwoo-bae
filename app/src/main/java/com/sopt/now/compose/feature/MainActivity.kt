@@ -3,28 +3,20 @@ package com.sopt.now.compose.feature
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.sopt.now.compose.R.drawable.ic_sign_up_profile_person
-import com.sopt.now.compose.component.row.CustomTextRowPair
-import com.sopt.now.compose.component.text.PageTitle
+import androidx.navigation.compose.rememberNavController
 import com.sopt.now.compose.core.intent.getSafeParcelable
 import com.sopt.now.compose.feature.model.User
+import com.sopt.now.compose.feature.nav.BottomNavGraph
+import com.sopt.now.compose.feature.nav.BottomNavigation
 import com.sopt.now.compose.feature.util.KeyStorage
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
@@ -55,55 +47,24 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(user: User) {
+    val navController = rememberNavController()
     Scaffold(
-        modifier = Modifier
-            .padding(20.dp)
-            .fillMaxSize(),
-        topBar = {
-            PageTitle("마이 페이지")
+        bottomBar = {
+            BottomNavigation(navController = navController)
         }
     ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    top = paddingValues.calculateTopPadding(),
-                    bottom = paddingValues.calculateBottomPadding()
-                )
+        Box(
+            modifier = Modifier.padding(paddingValues)
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
-            Image(
-                painter = painterResource(id = ic_sign_up_profile_person),
-                contentDescription = "profile",
-                modifier = Modifier
-                    .size(130.dp)
-                    .aspectRatio(1f / 1f)
-                    .align(Alignment.CenterHorizontally)
-
-            )
-            Spacer(modifier = Modifier.height(40.dp))
-            CustomTextRowPair(name1 = "아이디", name2 = user.id)
-            Spacer(modifier = Modifier.height(10.dp))
-            CustomTextRowPair(name1 = "비밀번호", name2 = user.password)
-            Spacer(modifier = Modifier.height(10.dp))
-            CustomTextRowPair(name1 = "닉네임", name2 = user.nickName)
-            Spacer(modifier = Modifier.height(10.dp))
-            CustomTextRowPair(name1 = "mbti", name2 = user.mbti)
+            BottomNavGraph(navController = navController, user = user)
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun GreetingPreview222() {
     NOWSOPTAndroidTheme {
-        MainScreen(
-            user = User(
-                id = "dsfs",
-                password = "dsfsdf",
-                nickName = "df",
-                mbti = "asdf"
-            )
-        )
+//        MainScreen()
     }
 }
