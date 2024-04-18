@@ -15,3 +15,9 @@ object StringResources {
     const val NICKNAME_ERROR_MESSAGE = "닉네임은 1자 이상 입력해주세요."
     const val MBTI_ERROR_MESSAGE = "MBTI 양식에 맞게 입력해주세요."
 }
+
+object DateKeyStorage {
+    const val TODAY = 0
+    const val YESTERDAY = 1
+    const val NOTHING = 2
+}
