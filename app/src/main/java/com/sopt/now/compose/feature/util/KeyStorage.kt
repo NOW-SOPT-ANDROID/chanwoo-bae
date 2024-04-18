@@ -6,3 +6,9 @@ object KeyStorage {
     const val SEARCH = "search"
     const val MY_PAGE = "my_page"
 }
+
+object DateKeyStorage {
+    const val TODAY = 0
+    const val YESTERDAY = 1
+    const val NOTHING = 2
+}

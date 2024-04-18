@@ -1,11 +1,11 @@
-package com.sopt.now.feature.home
+package com.sopt.now.compose.feature.home
 
-import DateUtils
-import DateUtils.today
-import DateUtils.yesterday
 import androidx.lifecycle.ViewModel
-import com.sopt.now.R
-import com.sopt.now.feature.model.HomeSealedItem
+import com.sopt.now.compose.R
+import com.sopt.now.compose.feature.model.HomeSealedItem
+import com.sopt.now.compose.feature.util.DateUtils
+import com.sopt.now.compose.feature.util.DateUtils.today
+import com.sopt.now.compose.feature.util.DateUtils.yesterday
 import java.time.LocalDate
 
 class HomeViewModel : ViewModel() {
