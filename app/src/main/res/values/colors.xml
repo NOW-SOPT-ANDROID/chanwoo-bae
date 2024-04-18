@@ -5,6 +5,12 @@
     <!--    main color-->
     <color name="primary">#FF4880EE</color>
     <color name="error">#FFFF5E5E</color>
+    <color name="line_divider">#E0E0E0</color>
+    <color name="title_gray">#7F7F7F</color>
+    <color name="cv_melon_green">#0FC345</color>
+    <color name="kakao_whiteblue">#94C0E7</color>
+    <color name="birthday_red">#E47178</color>
+    <color name="white_gray">#efefef</color>
     <!--    gray scale-->
     <color name="gray_1">#FFF6F6F7</color>
 </resources>
