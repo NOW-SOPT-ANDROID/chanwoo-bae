@@ -9,7 +9,14 @@
         android:id="@+id/fragment_home"
         android:name="com.sopt.now.feature.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_home_detail"
+            app:destination="@id/fragment_home_detail" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_my_page"
+            app:destination="@id/fragment_my_page" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_search"
         android:name="com.sopt.now.feature.search.SearchFragment"
@@ -19,5 +26,10 @@
         android:id="@+id/fragment_my_page"
         android:name="com.sopt.now.feature.mypage.MyPageFragment"
         android:label="MyPageFragment"
+        tools:layout="@layout/fragment_my_page" />
+    <fragment
+        android:id="@+id/fragment_home_detail"
+        android:name="com.sopt.now.feature.home.HomeDetailFragment"
+        android:label="HomeDetailFragment"
         tools:layout="@layout/fragment_my_page" />
 </navigation>
