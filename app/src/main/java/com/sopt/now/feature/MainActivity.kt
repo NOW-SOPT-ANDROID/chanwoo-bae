@@ -1,5 +1,6 @@
 package com.sopt.now.feature
 
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -34,11 +35,21 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 .findNavController()
         binding.bnvHome.setupWithNavController(navController)
         doubleBackPressedOnHomeTab(navController)
+        setBottomNavigationVisibility(navController)
     }
 
     private fun doubleBackPressedOnHomeTab(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             onBackPressedCallback.isEnabled = destination.id == R.id.fragment_home
+        }
+    }
+
+    private fun setBottomNavigationVisibility(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bnvHome.visibility = when (destination.id) {
+                R.id.fragment_home, R.id.fragment_my_page, R.id.fragment_search -> View.VISIBLE
+                else -> View.GONE
+            }
         }
     }
 
