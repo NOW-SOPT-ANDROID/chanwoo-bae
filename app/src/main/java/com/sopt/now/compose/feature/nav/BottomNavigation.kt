@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
@@ -27,18 +28,15 @@ fun BottomNavigation(navController: NavController) {
                     val iconPainter = painterResource(id = item.icon)
                     Icon(
                         painter = iconPainter,
-                        contentDescription = item.label
+                        contentDescription = stringResource(id = item.label)
                     )
                 },
-                label = { Text(item.label) },
+                label = { Text(stringResource(id = item.label)) },
                 selected = currentRoute == item.screenRoute,
                 onClick = {
                     navController.navigate(item.screenRoute) {
-                        navController.graph.startDestinationRoute?.let {
-                            popUpTo(it) { saveState = true }
-                        }
+                        popUpTo(navController.graph.startDestinationId)
                         launchSingleTop = true
-                        restoreState = true
                     }
                 }
             )
