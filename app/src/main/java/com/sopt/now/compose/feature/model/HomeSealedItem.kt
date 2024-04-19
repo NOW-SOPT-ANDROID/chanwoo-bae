@@ -6,10 +6,6 @@ import java.time.LocalDate
 import kotlinx.parcelize.Parcelize
 
 sealed class HomeSealedItem {
-    data class TitleLine(
-        val title: String
-    ) : HomeSealedItem()
-
     @Parcelize
     data class MyProfile(
         @DrawableRes val myProfileImg: Int,

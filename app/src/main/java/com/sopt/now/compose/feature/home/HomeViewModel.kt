@@ -10,12 +10,10 @@ import java.time.LocalDate
 
 class HomeViewModel : ViewModel() {
 
-    val mockProfileList = listOf<HomeSealedItem.MyProfile>(
-        HomeSealedItem.MyProfile(
-            myProfileImg = R.drawable.ic_sign_up_profile_person,
-            myName = "배찬우",
-            myDescription = "상태메시지 +"
-        )
+    val mockProfileList = HomeSealedItem.MyProfile(
+        myProfileImg = R.drawable.ic_sign_up_profile_person,
+        myName = "배찬우",
+        myDescription = "상태메시지 +"
     )
 
     val mockBirthList = listOf<HomeSealedItem.Friend>(
@@ -53,7 +51,7 @@ class HomeViewModel : ViewModel() {
             profileImage = R.drawable.ic_ghost_black_24,
             name = "이유빈",
             selfDescription = "ㅁㅁㅁㅁ",
-            date = LocalDate.of(2024, 4, 17)
+            date = LocalDate.of(2024, 4, 19)
         ),
         HomeSealedItem.Friend(
             profileImage = R.drawable.ic_ghost_black_24,
