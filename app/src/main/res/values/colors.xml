@@ -13,4 +13,6 @@
     <color name="white_gray">#efefef</color>
     <!--    gray scale-->
     <color name="gray_1">#FFF6F6F7</color>
+    <color name="gray_300">#8d94a0</color>
+    <color name="gray_500">#333d4b</color>
 </resources>
