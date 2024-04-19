@@ -22,4 +22,10 @@
     <string name="sign_up_nickname_input_hint">닉네임을 입력해 주세요</string>
     <string name="sign_up_mbti_input_hint">mbti를 입력해 주세요</string>
     <string name="sign_up_btn">회원가입 하기</string>
+    <string name="nav_home">홈</string>
+    <string name="nav_search">검색</string>
+    <string name="nav_my_page">마이</string>
+    <!--    홈화면-->
+    <string name="home_birth_friend">생일인 친구</string>
+    <string name="home_firends">친구</string>
 </resources>
