@@ -1,4 +1,4 @@
-package com.sopt.now.feature
+package com.sopt.now.feature.mypage
 
 import androidx.lifecycle.ViewModel
 import com.sopt.now.domain.entity.UserEntity
@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class MyPageViewModel @Inject constructor(
     private val getUserInfoUseCase: GetUserInfoUseCase,
     private val saveCheckLoginUseCase: SaveCheckLoginUseCase,
     private val clearUserInfoUseCase: ClearUserInfoUseCase

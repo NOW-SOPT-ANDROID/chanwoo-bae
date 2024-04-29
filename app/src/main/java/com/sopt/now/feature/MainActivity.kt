@@ -1,20 +1,17 @@
 package com.sopt.now.feature
 
-import android.content.Context
-import android.content.Intent
+import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.sopt.now.R
 import com.sopt.now.core.base.BindingActivity
 import com.sopt.now.core.util.context.snackBar
-import com.sopt.now.core.util.context.toast
-import com.sopt.now.core.util.intent.navigateTo
 import com.sopt.now.databinding.ActivityMainBinding
-import com.sopt.now.feature.auth.LoginActivity
-import com.sopt.now.feature.model.User
-import com.sopt.now.feature.util.KeyStorage
 import com.sopt.now.feature.util.KeyStorage.TOTAL_PRESSED_TIME
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -26,46 +23,33 @@ import kotlinx.coroutines.launch
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
     private var backPressedTime = 0L
     private val backPressedFlow = MutableSharedFlow<Unit>()
-    private val viewModel by viewModels<MainViewModel>()
 
     override fun initView() {
-        initBtnClickListener()
-        initUpdateUserDataUI()
+        initMainBottomNavigation()
         initBackDoublePressed()
     }
 
-    private fun initBtnClickListener() {
-        initSignOutBtnClickListener()
-        initClearInfoBtnClickListener()
+    private fun initMainBottomNavigation() {
+        val navController =
+            (supportFragmentManager.findFragmentById(R.id.fcv_home) as NavHostFragment)
+                .findNavController()
+        binding.bnvHome.setupWithNavController(navController)
+        doubleBackPressedOnHomeTab(navController)
+        setBottomNavigationVisibility(navController)
     }
 
-    private fun initSignOutBtnClickListener() {
-        binding.tvMainSignOut.setOnClickListener {
-            viewModel.updateCheckLoginState(false)
-            toast(getString(R.string.login_completed, getString(R.string.main_logout_under_bar)))
-            navigateTo<LoginActivity>(this)
+    private fun doubleBackPressedOnHomeTab(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            onBackPressedCallback.isEnabled = destination.id == R.id.fragment_home
         }
     }
 
-    private fun initClearInfoBtnClickListener() {
-        binding.tvMainClearInfo.setOnClickListener {
-            viewModel.clearSharedPrefUserInfo()
-            toast(
-                getString(
-                    R.string.login_completed,
-                    getString(R.string.main_clear_user_under_bar)
-                )
-            )
-            navigateTo<LoginActivity>(this)
-        }
-    }
-
-    private fun initUpdateUserDataUI() = with(binding) {
-        viewModel.getSharedPrefUserInfo().apply {
-            tvMainIdData.text = id
-            tvMainPwdData.text = password
-            tvMainNicknameData.text = nickName
-            tvMainMbtiData.text = mbti
+    private fun setBottomNavigationVisibility(navController: NavController) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.bnvHome.visibility = when (destination.id) {
+                R.id.fragment_home, R.id.fragment_my_page, R.id.fragment_search -> View.VISIBLE
+                else -> View.GONE
+            }
         }
     }
 
@@ -97,14 +81,6 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         } else {
             backPressedTime = currentTime
             snackBar(binding.root, getString(R.string.main_back_once_pressed_exit))
-        }
-    }
-
-    companion object {
-        fun createIntent(context: Context, user: User): Intent {
-            return Intent(context, MainActivity::class.java).apply {
-                putExtra(KeyStorage.USER_INPUT, user)
-            }
         }
     }
 }

@@ -24,8 +24,12 @@
     <string name="sign_up_mbti_input_hint">mbti를 입력해 주세요</string>
     <string name="sign_up_btn">회원가입 하기</string>
     <string name="sign_up">회원가입</string>
-    <!--    메인 화면-->
+    <!--    메인 액티비티-->
     <string name="main_back_once_pressed_exit">한번 더 누르면 종료 합니다.</string>
+    <string name="menu_title_home">홈</string>
+    <string name="menu_title_search">검색</string>
+    <string name="menu_title_my">마이</string>
+    <!--    마이페이지 화면-->
     <string name="main_logout_under_bar"><u>로그아웃</u></string>
     <string name="main_clear_user_under_bar"><u>회원탈퇴</u></string>
 </resources>
