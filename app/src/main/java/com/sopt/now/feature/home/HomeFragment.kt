@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sopt.now.R
 import com.sopt.now.core.base.BindingFragment
+import com.sopt.now.core.util.fragment.setScrollTopOnReselect
 import com.sopt.now.databinding.FragmentHomeBinding
 import com.sopt.now.feature.home.adapter.HomeMultiAdapter
 import com.sopt.now.feature.model.HomeSealedItem
@@ -18,6 +19,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     override fun initView() {
         initMultiRecyclerView()
+        scrollRecyclerViewToTop()
+    }
+
+    private fun scrollRecyclerViewToTop() {
+        setScrollTopOnReselect(
+            R.id.fragment_home,
+            R.id.bnv_home,
+            binding.rvFriends
+        )
     }
 
     private fun initMultiRecyclerView() {
