@@ -1,5 +1,6 @@
-package com.sopt.now.data.dto.remote.response
+package com.sopt.now.compose.data.response
 
+import com.sopt.now.compose.feature.model.User
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,4 +12,11 @@ data class ResponseMemberInfo(
     val nickname: String,
     @SerialName("phone")
     val phone: String
-)
+) {
+    fun toMemberInfo() = User(
+        id = authenticationId,
+        password = "",
+        nickName = nickname,
+        phone = phone
+    )
+}

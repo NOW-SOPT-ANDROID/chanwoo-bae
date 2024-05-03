@@ -1,5 +1,6 @@
 package com.sopt.now.compose.data.response
 
+import com.sopt.now.compose.feature.model.ReqresEntity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -39,4 +40,14 @@ data class ResponseReqresDto(
         @SerialName("url")
         val url: String
     )
+
+    fun toReqresList(): List<ReqresEntity> = data.map {
+        ReqresEntity(
+            id = it.id,
+            email = it.email,
+            firstName = it.firstName,
+            lastName = it.lastName,
+            avatar = it.avatar
+        )
+    }
 }
