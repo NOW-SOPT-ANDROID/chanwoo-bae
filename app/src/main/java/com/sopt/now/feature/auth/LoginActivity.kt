@@ -32,7 +32,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initAutoLoginStateObserve()
         initRegisterResultLauncher()
         initBtnClickListener()
-        initSignUpStateObserve()
+        initPostLoginStateObserve()
     }
 
     private fun initAutoLoginStateObserve() {
@@ -63,7 +63,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initLoginBtnClickListener() = with(binding) {
         btnLogin.setOnClickListener {
-            viewModel.setLogin(
+            viewModel.postLogin(
                 id = etLoginId.text.toString(),
                 pwd = etLoginPwd.text.toString()
             )
@@ -77,12 +77,12 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         }
     }
 
-    private fun initSignUpStateObserve() {
-        viewModel.loginState.flowWithLifecycle(lifecycle).onEach { state ->
+    private fun initPostLoginStateObserve() {
+        viewModel.postLoginState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> {
-                    toast(getString(R.string.login_completed, getString(R.string.login)))
-                    viewModel.saveCheckLoginSharedPreference(true)
+                    toast("로그인이 완료되었고 id는 ${state.data} 입니다")
+                    viewModel.saveCheckLoginSharedPreference(state.data)
                     navigateTo<MainActivity>(this)
                 }
 
