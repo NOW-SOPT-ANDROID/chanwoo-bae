@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,12 +24,13 @@ import com.sopt.now.compose.feature.model.ReqresEntity
 fun SearchScreen() {
     val viewModel: SearchViewModel = viewModel()
     val context = LocalContext.current
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
 
     LaunchedEffect(Unit) {
         viewModel.getReqresList(1)
     }
 
-    val reqresListState by viewModel.getReqresListState.collectAsStateWithLifecycle()
+    val reqresListState by viewModel.getReqresListState.collectAsStateWithLifecycle(lifecycle)
 
     val reqresList = when (reqresListState) {
         is UiState.Success -> (reqresListState as UiState.Success<List<ReqresEntity>>).data

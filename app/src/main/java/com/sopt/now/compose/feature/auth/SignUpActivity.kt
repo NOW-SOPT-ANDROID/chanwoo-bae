@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -67,8 +68,9 @@ fun SignUpScreen(
     var mbti by remember { mutableStateOf("") }
 
     val context = LocalContext.current
+    val signUpState by viewModel.signUpResponseState.collectAsState(initial = UiState.Loading)
 
-    LaunchedEffect(viewModel) {
+    LaunchedEffect(signUpState) {
         viewModel.signUpResponseState.collect { uiState ->
             when (uiState) {
                 is UiState.Success -> {

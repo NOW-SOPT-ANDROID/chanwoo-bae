@@ -6,7 +6,7 @@ import com.sopt.now.compose.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
 import com.sopt.now.compose.feature.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -14,7 +14,7 @@ import org.json.JSONObject
 class MyPageViewModel : ViewModel() {
 
     private val _getMemberInfoState = MutableStateFlow<UiState<User>>(UiState.Loading)
-    val getMemberInfoState: SharedFlow<UiState<User>> get() = _getMemberInfoState.asStateFlow()
+    val getMemberInfoState: StateFlow<UiState<User>> get() = _getMemberInfoState.asStateFlow()
 
     fun getMemberInfo(id: Int) {
         viewModelScope.launch {
