@@ -1,10 +1,10 @@
-package com.sopt.now.compose.api
+package com.sopt.now.compose.data.api
 
 import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sopt.now.compose.BuildConfig
-import com.sopt.now.compose.api.service.AuthService
-import com.sopt.now.compose.api.service.ReqresService
+import com.sopt.now.compose.data.api.service.AuthService
+import com.sopt.now.compose.data.api.service.ReqresService
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType

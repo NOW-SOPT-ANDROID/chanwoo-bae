@@ -1,9 +1,9 @@
-package com.sopt.now.compose.api.service
+package com.sopt.now.compose.data.api.service
 
-import com.sopt.now.compose.api.ApiKeyStorage.INFO
-import com.sopt.now.compose.api.ApiKeyStorage.JOIN
-import com.sopt.now.compose.api.ApiKeyStorage.LOGIN
-import com.sopt.now.compose.api.ApiKeyStorage.MEMBER
+import com.sopt.now.compose.data.api.ApiKeyStorage.INFO
+import com.sopt.now.compose.data.api.ApiKeyStorage.JOIN
+import com.sopt.now.compose.data.api.ApiKeyStorage.LOGIN
+import com.sopt.now.compose.data.api.ApiKeyStorage.MEMBER
 import com.sopt.now.compose.data.request.RequestLoginDto
 import com.sopt.now.compose.data.request.RequestSignUpDto
 import com.sopt.now.compose.data.response.BaseResponse

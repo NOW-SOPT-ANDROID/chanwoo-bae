@@ -1,4 +1,4 @@
-package com.sopt.now.compose.api
+package com.sopt.now.compose.data.api
 
 object ApiKeyStorage {
     const val MEMBER = "member"

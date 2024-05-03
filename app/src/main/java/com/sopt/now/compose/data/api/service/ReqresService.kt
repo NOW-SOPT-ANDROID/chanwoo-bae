@@ -1,4 +1,4 @@
-package com.sopt.now.compose.api.service
+package com.sopt.now.compose.data.api.service
 
 import com.sopt.now.compose.data.response.ResponseReqresDto
 import retrofit2.http.GET
