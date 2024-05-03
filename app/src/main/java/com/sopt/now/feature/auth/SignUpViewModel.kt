@@ -85,7 +85,7 @@ class SignUpViewModel @Inject constructor(
         user.value.id.length in MIN_ID_LENGTH..MAX_ID_LENGTH
 
     private fun pwdValidate(): Boolean =
-        passwordValidationUseCase.invoke(user.value.password ?: "")
+        passwordValidationUseCase.invoke(user.value.password.orEmpty())
 
     private fun nickNameValidate(): Boolean =
         user.value.nickName.length >= MIN_NICKNAME_LENGTH
