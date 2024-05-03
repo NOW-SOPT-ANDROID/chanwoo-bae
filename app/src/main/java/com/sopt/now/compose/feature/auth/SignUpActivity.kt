@@ -1,5 +1,6 @@
 package com.sopt.now.compose.feature.auth
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -150,7 +151,7 @@ private fun navigateToLoginActivity(context: Context, data: User) {
     val currentContext = context as ComponentActivity
     Intent().apply {
         putExtra(KeyStorage.USER_INPUT, data)
-        currentContext.setResult(ComponentActivity.RESULT_OK, this)
+        currentContext.setResult(RESULT_OK)
         currentContext.finish()
     }
 }
