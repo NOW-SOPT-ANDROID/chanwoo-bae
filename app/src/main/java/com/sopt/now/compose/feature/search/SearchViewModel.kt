@@ -6,14 +6,15 @@ import com.sopt.now.compose.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
 import com.sopt.now.compose.feature.model.ReqresEntity
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SearchViewModel : ViewModel() {
 
     private val _getReqresListState = MutableStateFlow<UiState<List<ReqresEntity>>>(UiState.Loading)
-    val getReqresListState: SharedFlow<UiState<List<ReqresEntity>>> get() = _getReqresListState.asStateFlow()
+    val getReqresListState: StateFlow<UiState<List<ReqresEntity>>>
+        get() = _getReqresListState.asStateFlow()
 
     fun getReqresList(page: Int) {
         viewModelScope.launch {

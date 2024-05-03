@@ -67,6 +67,7 @@ dependencies {
     // define any required OkHttp artifacts without version
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose-android:2.8.0-rc01'
 
     // navi
     def nav_version = "2.7.7"

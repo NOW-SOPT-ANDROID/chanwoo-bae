@@ -9,13 +9,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.component.row.ReqresDummyRow
 import com.sopt.now.compose.core.view.UiState
+import com.sopt.now.compose.feature.model.ReqresEntity
 
 @Composable
 fun SearchScreen() {
@@ -26,13 +28,16 @@ fun SearchScreen() {
         viewModel.getReqresList(1)
     }
 
-    val reqresListState =
-        viewModel.getReqresListState.collectAsState(initial = UiState.Loading).value
+    val reqresListState by viewModel.getReqresListState.collectAsStateWithLifecycle()
 
-    val reqres = when (reqresListState) {
-        is UiState.Success -> reqresListState.data
+    val reqresList = when (reqresListState) {
+        is UiState.Success -> (reqresListState as UiState.Success<List<ReqresEntity>>).data
         is UiState.Failure -> {
-            Toast.makeText(context, reqresListState.errorMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                (reqresListState as UiState.Failure).errorMessage,
+                Toast.LENGTH_SHORT
+            ).show()
             null
         }
 
@@ -51,10 +56,10 @@ fun SearchScreen() {
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            if (reqres == null) {
+            if (reqresList == null) {
                 return@LazyColumn
             }
-            items(reqres) { reqresList ->
+            items(reqresList) { reqresList ->
                 ReqresDummyRow(data = reqresList)
             }
         }
