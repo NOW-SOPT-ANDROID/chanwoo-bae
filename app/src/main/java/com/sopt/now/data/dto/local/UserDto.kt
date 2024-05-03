@@ -14,6 +14,6 @@ data class UserDto(
         id = id,
         password = password,
         nickName = nickName,
-        mbti = mbti
+        phone = mbti
     )
 }
