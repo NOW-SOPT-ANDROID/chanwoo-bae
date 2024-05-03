@@ -7,33 +7,17 @@ import com.sopt.now.compose.data.api.ApiFactory
 import com.sopt.now.compose.data.request.RequestSignUpDto
 import com.sopt.now.compose.feature.model.User
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class SignUpViewModel : ViewModel() {
 
-    private val _user = MutableStateFlow<User>(
-        User(
-            id = "",
-            password = "",
-            nickName = "",
-            phone = ""
-        )
-    )
-    val user: StateFlow<User> get() = _user
-
-    private val _signUpState = MutableSharedFlow<UiState<User>>()
-    val signUpState: SharedFlow<UiState<User>> get() = _signUpState.asSharedFlow()
-
     private val _signUpResponseState = MutableSharedFlow<UiState<User>>()
     val signUpResponseState: SharedFlow<UiState<User>> get() = _signUpResponseState.asSharedFlow()
 
     fun setUser(user: User) {
-        _user.value = user
         postSignUp(user)
     }
 
@@ -52,7 +36,7 @@ class SignUpViewModel : ViewModel() {
                     _signUpResponseState.emit(UiState.Failure(errorMessage.toString()))
                 }
             }.onFailure { throwable ->
-                _signUpState.emit(UiState.Failure(throwable.message.toString()))
+                _signUpResponseState.emit(UiState.Failure(throwable.message.toString()))
             }
         }
     }

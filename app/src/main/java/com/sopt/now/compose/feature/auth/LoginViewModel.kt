@@ -5,36 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.sopt.now.compose.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
 import com.sopt.now.compose.data.request.RequestLoginDto
-import com.sopt.now.compose.feature.model.User
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class LoginViewModel : ViewModel() {
-
-    private val _user = MutableStateFlow<User>(
-        User(
-            id = "",
-            password = "",
-            nickName = "",
-            phone = ""
-        )
-    )
-    val user: StateFlow<User> get() = _user
-
-    private val _signUpState = MutableSharedFlow<UiState<User>>()
-    val signUpState: SharedFlow<UiState<User>> get() = _signUpState.asSharedFlow()
-
     private val _loginResponseState = MutableSharedFlow<UiState<Int>>()
     val loginResponseState: SharedFlow<UiState<Int>> get() = _loginResponseState.asSharedFlow()
-
-    fun setUser(user: User) {
-        _user.value = user
-    }
 
     fun postLogin(id: String, pwd: String) {
         viewModelScope.launch {
@@ -52,7 +31,7 @@ class LoginViewModel : ViewModel() {
                     _loginResponseState.emit(UiState.Failure(errorMessage.toString()))
                 }
             }.onFailure { throwable ->
-                _signUpState.emit(UiState.Failure(throwable.message.toString()))
+                _loginResponseState.emit(UiState.Failure(throwable.message.toString()))
             }
         }
     }
