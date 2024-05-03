@@ -49,10 +49,6 @@ class SignUpViewModel @Inject constructor(
         checkValidateUser(user)
     }
 
-    fun saveUserInfoSharedPreference(input: UserEntity) {
-        saveUserInfoUseCase.invoke(input)
-    }
-
     private fun checkValidateUser(userEntity: UserEntity) {
         viewModelScope.launch {
             val newState = when {

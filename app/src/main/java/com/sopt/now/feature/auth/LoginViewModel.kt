@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val getUserInfoUseCase: GetUserInfoUseCase,
-    private val getCheckLoginUseCase: GetUserIdUseCase,
+    private val getUserIdUseCase: GetUserIdUseCase,
     private val saveCheckLoginUseCase: SaveCheckLoginUseCase,
     private val loginRepository: LoginRepository
 ) : ViewModel() {
@@ -55,7 +55,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun isAutoLogin(): Boolean = getCheckLoginUseCase.invoke() != -1
+    private fun isAutoLogin(): Boolean = getUserIdUseCase.invoke() != -1
 
     fun saveCheckLoginSharedPreference(input: Int) {
         saveCheckLoginUseCase.invoke(input)
