@@ -16,7 +16,11 @@ class MyPageViewModel : ViewModel() {
     private val _getMemberInfoState = MutableStateFlow<UiState<User>>(UiState.Loading)
     val getMemberInfoState: StateFlow<UiState<User>> get() = _getMemberInfoState.asStateFlow()
 
-    fun getMemberInfo(id: Int) {
+    init {
+        getMemberInfo()
+    }
+
+    private fun getMemberInfo() {
         viewModelScope.launch {
             runCatching {
                 ApiFactory.ServicePool.authService.getMemberInfo()

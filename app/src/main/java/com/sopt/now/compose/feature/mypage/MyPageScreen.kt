@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -29,10 +27,6 @@ import com.sopt.now.compose.core.view.UiState
 fun MyPageScreen(id: Int) {
     val viewModel: MyPageViewModel = viewModel()
     val context = LocalContext.current
-
-    LaunchedEffect(id) {
-        viewModel.getMemberInfo(id)
-    }
 
     val memberInfoState =
         viewModel.getMemberInfoState.collectAsState(initial = UiState.Loading).value
