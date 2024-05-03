@@ -32,8 +32,9 @@ object ApiFactory {
      2. addInterceptor(getLogOkHttpClient())를 호출하여 앞서 정의한 로깅 Interceptor를 달아준다.
      3.build()로 okHttpClient 객체를 생성
     */
-    val okHttpClient = OkHttpClient.Builder()
+    private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(getLogOkHttpClient())
+        .addInterceptor(HeaderInterceptor()) // header interceptor 추가
         .build()
 
     private fun createRetrofit(baseUrl: String): Retrofit {

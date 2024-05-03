@@ -5,6 +5,7 @@ object KeyStorage {
     const val HOME = "home"
     const val SEARCH = "search"
     const val MY_PAGE = "my_page"
+    const val ID_DEFAULT = -1
 }
 
 object DateKeyStorage {

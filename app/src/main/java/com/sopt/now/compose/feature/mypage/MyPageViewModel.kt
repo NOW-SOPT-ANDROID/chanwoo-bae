@@ -19,7 +19,7 @@ class MyPageViewModel : ViewModel() {
     fun getMemberInfo(id: Int) {
         viewModelScope.launch {
             runCatching {
-                ApiFactory.ServicePool.authService.getMemberInfo(id)
+                ApiFactory.ServicePool.authService.getMemberInfo()
             }.onSuccess { response ->
                 if (response.isSuccessful) {
                     val data = response.body()?.data

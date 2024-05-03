@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.compose.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
+import com.sopt.now.compose.data.api.UserIdProvider
 import com.sopt.now.compose.data.request.RequestLoginDto
+import com.sopt.now.compose.feature.util.KeyStorage.ID_DEFAULT
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -22,7 +24,8 @@ class LoginViewModel : ViewModel() {
             }.onSuccess { response ->
                 if (response.isSuccessful) {
                     val userId = response.headers()["location"]
-                    _loginResponseState.emit(UiState.Success(userId?.toInt() ?: -1))
+                    UserIdProvider.setUserId(userId?.toInt() ?: ID_DEFAULT)
+                    _loginResponseState.emit(UiState.Success(userId?.toInt() ?: ID_DEFAULT))
                 } else {
                     val errorBody = response.errorBody()?.string()
                     val jsonObject = JSONObject(errorBody.toString())

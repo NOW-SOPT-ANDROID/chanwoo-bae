@@ -11,7 +11,6 @@ import com.sopt.now.compose.data.response.ResponseMemberInfo
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface AuthService {
@@ -26,7 +25,5 @@ interface AuthService {
     ): Response<BaseResponse<Unit>>
 
     @GET("$MEMBER/$INFO")
-    suspend fun getMemberInfo(
-        @Header("memberId") id: Int
-    ): Response<BaseResponse<ResponseMemberInfo>>
+    suspend fun getMemberInfo(): Response<BaseResponse<ResponseMemberInfo>>
 }
