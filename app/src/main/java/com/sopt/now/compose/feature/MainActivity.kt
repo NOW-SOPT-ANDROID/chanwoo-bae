@@ -13,8 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.sopt.now.compose.core.intent.getSafeParcelable
-import com.sopt.now.compose.feature.model.User
 import com.sopt.now.compose.feature.nav.BottomNavGraph
 import com.sopt.now.compose.feature.nav.BottomNavigation
 import com.sopt.now.compose.feature.util.KeyStorage
@@ -29,24 +27,18 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val receivedUserInput = getUserData()
-                    MainScreen(user = receivedUserInput)
+                    val receivedId = getUserData()
+                    MainScreen(id = receivedId)
                 }
             }
         }
     }
 
-    private fun getUserData() =
-        intent?.getSafeParcelable<User>(name = KeyStorage.USER_INPUT) ?: User(
-            id = "배찬우",
-            password = "12345678",
-            nickName = "bcw",
-            mbti = "infp"
-        )
+    private fun getUserData() = intent?.getIntExtra(KeyStorage.USER_INPUT, -1) ?: -1
 }
 
 @Composable
-fun MainScreen(user: User) {
+fun MainScreen(id: Int) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
@@ -56,7 +48,7 @@ fun MainScreen(user: User) {
         Box(
             modifier = Modifier.padding(paddingValues)
         ) {
-            BottomNavGraph(navController = navController, user = user)
+            BottomNavGraph(navController = navController, id = id)
         }
     }
 }
