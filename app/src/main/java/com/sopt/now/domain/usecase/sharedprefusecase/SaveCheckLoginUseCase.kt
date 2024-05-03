@@ -6,7 +6,7 @@ import javax.inject.Inject
 class SaveCheckLoginUseCase @Inject constructor(
     private val userInfoRepository: UserInfoRepository
 ) {
-    operator fun invoke(isChecked: Boolean) {
+    operator fun invoke(isChecked: Int) {
         userInfoRepository.saveCheckLogin(isChecked)
     }
 }

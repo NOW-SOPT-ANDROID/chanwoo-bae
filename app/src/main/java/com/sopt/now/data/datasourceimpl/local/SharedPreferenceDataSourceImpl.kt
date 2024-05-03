@@ -12,9 +12,9 @@ import kotlinx.serialization.json.Json
 class SharedPreferenceDataSourceImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : SharedPreferenceDataSource {
-    override var checkLogin: Boolean
-        get() = sharedPreferences.getBoolean(CHECK_LOGIN, false)
-        set(value) = sharedPreferences.edit { putBoolean(CHECK_LOGIN, value) }
+    override var checkLogin: Int
+        get() = sharedPreferences.getInt(CHECK_LOGIN, -1)
+        set(value) = sharedPreferences.edit { putInt(CHECK_LOGIN, value) }
 
     override fun saveUserInfo(userDto: UserDto?) {
         val json = Json.encodeToString(userDto)
