@@ -13,7 +13,7 @@ object StringResources {
     const val ID_ERROR_MESSAGE = "아이디는 6자 이상 10자 이하로 입력해주세요."
     const val PASSWORD_ERROR_MESSAGE = "비밀번호는 8자 이상 12자 이하로 입력해주세요."
     const val NICKNAME_ERROR_MESSAGE = "닉네임은 1자 이상 입력해주세요."
-    const val MBTI_ERROR_MESSAGE = "MBTI 양식에 맞게 입력해주세요."
+    const val MBTI_ERROR_MESSAGE = "전화번호가 형식(010-****-****)에 맞지 않습니다."
 }
 
 object DateKeyStorage {
