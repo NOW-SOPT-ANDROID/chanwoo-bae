@@ -23,11 +23,11 @@ android {
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
 
-        val authBaseUrl = properties["base.url"] as? String ?: ""
-        val reqresBaseUrl = properties["reqres.base.url"] as? String ?: ""
+        val authBaseUrl = (properties["base.url"] as? String)?.trim('"') ?: ""
+        val reqresBaseUrl = (properties["reqres.base.url"] as? String)?.trim('"') ?: ""
 
-        buildConfigField("String", "AUTH_BASE_URL", "\"${authBaseUrl}\"")
-        buildConfigField("String", "REQRES_BASE_URL", "\"${reqresBaseUrl}\"")
+        buildConfigField("String", "AUTH_BASE_URL", "\"$authBaseUrl\"")
+        buildConfigField("String", "REQRES_BASE_URL", "\"$reqresBaseUrl\"")
     }
 
     buildTypes {
