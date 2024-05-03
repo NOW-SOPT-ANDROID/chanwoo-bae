@@ -33,13 +33,13 @@ class HomeViewModel : ViewModel() {
             profileImage = R.drawable.ic_my_page_profile_3x,
             name = "유정현",
             selfDescription = "안녕안녕",
-            date = LocalDate.of(2023, 10, 28)
+            date = LocalDate.of(2024, 10, 28)
         ),
         HomeSealedItem.Friend(
             profileImage = R.drawable.ic_ghost_black_24,
             name = "김언지",
             selfDescription = "ㅁㅁㅁㅁ",
-            date = LocalDate.of(2023, 10, 28)
+            date = LocalDate.of(2024, 4, 20)
         ),
         HomeSealedItem.Friend(
             profileImage = R.drawable.ic_ghost_black_24,
@@ -63,7 +63,7 @@ class HomeViewModel : ViewModel() {
             profileImage = R.drawable.ic_ghost_black_24,
             name = "배로로",
             selfDescription = "안녕 난 케로로야",
-            date = LocalDate.of(2024, 4, 17)
+            date = LocalDate.of(2024, 4, 18)
         ),
         HomeSealedItem.Friend(
             profileImage = R.drawable.ic_ghost_black_24,
@@ -75,7 +75,7 @@ class HomeViewModel : ViewModel() {
             profileImage = R.drawable.ic_ghost_black_24,
             name = "최준서",
             selfDescription = "노래 불러주세요",
-            date = LocalDate.of(2024, 3, 24)
+            date = LocalDate.of(2024, 4, 18)
         )
     )
 
