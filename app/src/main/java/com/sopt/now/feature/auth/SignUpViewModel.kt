@@ -7,7 +7,6 @@ import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.domain.repository.LoginRepository
 import com.sopt.now.domain.usecase.regex.PasswordValidationUseCase
 import com.sopt.now.domain.usecase.regex.PhoneNumberValidationUseCase
-import com.sopt.now.domain.usecase.sharedprefusecase.SaveUserInfoUseCase
 import com.sopt.now.feature.util.StringResources
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -22,7 +21,6 @@ import retrofit2.HttpException
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val saveUserInfoUseCase: SaveUserInfoUseCase,
     private val passwordValidationUseCase: PasswordValidationUseCase,
     private val phoneNumberValidationUseCase: PhoneNumberValidationUseCase,
     private val loginRepository: LoginRepository
@@ -42,7 +40,7 @@ class SignUpViewModel @Inject constructor(
     val signUpState: SharedFlow<UiState<UserEntity>> get() = _signUpState.asSharedFlow()
 
     private val _signUpResponseState = MutableSharedFlow<UiState<Boolean>>()
-    val signUpResponseState: SharedFlow<UiState<Boolean>> get() = _signUpResponseState.asSharedFlow()
+    val signUpResponseState get() = _signUpResponseState.asSharedFlow()
 
     fun setUser(user: UserEntity) {
         _user.value = user
