@@ -5,7 +5,6 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.sopt.now.R
 import com.sopt.now.core.base.BindingFragment
-import com.sopt.now.core.util.context.snackBar
 import com.sopt.now.core.util.fragment.snackBar
 import com.sopt.now.core.util.fragment.toast
 import com.sopt.now.core.util.intent.navigateTo
@@ -13,6 +12,7 @@ import com.sopt.now.core.view.UiState
 import com.sopt.now.databinding.FragmentMyPageBinding
 import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.feature.auth.LoginActivity
+import com.sopt.now.feature.util.KeyStorage.HEADER_ID_DEFAULT_NUM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -31,7 +31,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     }
 
     private fun initObserveMemberProfileState() {
-        viewModel.getMemeberProfile()
+        viewModel.getMemberProfile()
         viewModel.memberProfileState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> initUpdateUserDataUI(state.data)
@@ -43,7 +43,7 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
 
     private fun initSignOutBtnClickListener() {
         binding.tvMainSignOut.setOnClickListener {
-            viewModel.updateCheckLoginState(-1)
+            viewModel.updateCheckLoginState(HEADER_ID_DEFAULT_NUM)
             toast(getString(R.string.login_completed, getString(R.string.main_logout_under_bar)))
             navigateTo<LoginActivity>(requireContext())
         }

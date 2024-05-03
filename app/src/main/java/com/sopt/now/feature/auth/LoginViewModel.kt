@@ -7,7 +7,8 @@ import com.sopt.now.core.view.UiState
 import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.domain.repository.LoginRepository
 import com.sopt.now.domain.usecase.sharedprefusecase.GetUserIdUseCase
-import com.sopt.now.domain.usecase.sharedprefusecase.SaveCheckLoginUseCase
+import com.sopt.now.domain.usecase.sharedprefusecase.SaveUserIdUseCase
+import com.sopt.now.feature.util.KeyStorage.HEADER_ID_DEFAULT_NUM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val getUserIdUseCase: GetUserIdUseCase,
-    private val saveCheckLoginUseCase: SaveCheckLoginUseCase,
+    private val saveUserIdUseCase: SaveUserIdUseCase,
     private val loginRepository: LoginRepository
 ) : ViewModel() {
     private val _savedUserInfo = MutableStateFlow<UserEntity>(
@@ -49,11 +50,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun isAutoLogin(): Boolean = getUserIdUseCase.invoke() != -1
+    private fun isAutoLogin(): Boolean = getUserIdUseCase.invoke() != HEADER_ID_DEFAULT_NUM
 
     fun saveCheckLoginSharedPreference(input: Int) {
         viewModelScope.launch {
-            saveCheckLoginUseCase.invoke(input)
+            saveUserIdUseCase.invoke(input)
         }
     }
 

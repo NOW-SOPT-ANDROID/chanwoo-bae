@@ -7,7 +7,8 @@ import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.domain.repository.LoginRepository
 import com.sopt.now.domain.usecase.sharedprefusecase.ClearUserInfoUseCase
 import com.sopt.now.domain.usecase.sharedprefusecase.GetUserIdUseCase
-import com.sopt.now.domain.usecase.sharedprefusecase.SaveCheckLoginUseCase
+import com.sopt.now.domain.usecase.sharedprefusecase.SaveUserIdUseCase
+import com.sopt.now.feature.util.KeyStorage.HEADER_ID_DEFAULT_NUM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     private val getUserIdUseCase: GetUserIdUseCase,
-    private val saveCheckLoginUseCase: SaveCheckLoginUseCase,
+    private val saveUserIdUseCase: SaveUserIdUseCase,
     private val clearUserInfoUseCase: ClearUserInfoUseCase,
     private val loginRepository: LoginRepository
 ) : ViewModel() {
@@ -26,14 +27,14 @@ class MyPageViewModel @Inject constructor(
     private val _memberProfileState = MutableStateFlow<UiState<UserEntity>>(UiState.Loading)
     val memberProfileState: StateFlow<UiState<UserEntity>> get() = _memberProfileState.asStateFlow()
 
-    private var userId: Int = -1
+    private var userId: Int = HEADER_ID_DEFAULT_NUM
 
     init {
         checkAutoLogin()
     }
 
     fun updateCheckLoginState(isAutoLogin: Int) {
-        saveCheckLoginUseCase.invoke(isAutoLogin)
+        saveUserIdUseCase.invoke(isAutoLogin)
     }
 
     fun clearSharedPrefUserInfo() = clearUserInfoUseCase.invoke()
@@ -44,7 +45,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    fun getMemeberProfile() {
+    fun getMemberProfile() {
         viewModelScope.launch {
             loginRepository.getMemberInfo(userId).onSuccess { state ->
                 _memberProfileState.emit(UiState.Success(state))
