@@ -4,8 +4,8 @@ import com.sopt.now.domain.entity.UserEntity
 
 interface UserInfoRepository {
     fun saveUserInfo(user: UserEntity)
-    fun saveCheckLogin(isChecked: Boolean)
+    fun saveCheckLogin(isChecked: Int)
     fun getUserInfo(): UserEntity
-    fun getCheckLogin(): Boolean
+    fun getCheckLogin(): Int
     fun clear()
 }
