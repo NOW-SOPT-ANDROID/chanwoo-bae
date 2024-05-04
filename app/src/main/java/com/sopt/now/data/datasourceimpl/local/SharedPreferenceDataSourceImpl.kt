@@ -11,7 +11,7 @@ import javax.inject.Inject
 class SharedPreferenceDataSourceImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : SharedPreferenceDataSource {
-    override var checkLogin: Int
+    override var memberId: Int
         get() = sharedPreferences.getInt(CHECK_LOGIN, -1)
         set(value) = sharedPreferences.edit { putInt(CHECK_LOGIN, value) }
 
@@ -35,6 +35,6 @@ class SharedPreferenceDataSourceImpl @Inject constructor(
 
     companion object {
         const val USER_INFO = "userId"
-        const val CHECK_LOGIN = "checkLogin"
+        const val CHECK_LOGIN = "memberId"
     }
 }
