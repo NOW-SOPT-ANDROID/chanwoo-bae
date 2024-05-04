@@ -18,14 +18,16 @@ class SearchViewModel @Inject constructor(
     private val _reqresUserState = MutableStateFlow<UiState<List<ReqresEntity>>>(UiState.Loading)
     val reqresUserState get() = _reqresUserState.asStateFlow()
 
-    fun getReqresUserList(page: Int) {
+    init {
+        getReqresUserList(1)
+    }
+
+    private fun getReqresUserList(page: Int) {
         viewModelScope.launch {
             _reqresUserState.emit(UiState.Loading)
             reqresRepository.getReqresList(page)
                 .onSuccess {
-                    if (it.isNotEmpty()) {
-                        _reqresUserState.emit(UiState.Success(it.toList()))
-                    }
+                    if (it.isNotEmpty()) _reqresUserState.emit(UiState.Success(it.toList()))
                 }.onFailure {
                     _reqresUserState.emit(UiState.Failure(it.message.toString()))
                 }

@@ -31,7 +31,6 @@ class MyPageFragment : BindingFragment<FragmentMyPageBinding>(R.layout.fragment_
     }
 
     private fun initObserveMemberProfileState() {
-        viewModel.getMemberProfile()
         viewModel.memberProfileState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is UiState.Success -> initUpdateUserDataUI(state.data)
