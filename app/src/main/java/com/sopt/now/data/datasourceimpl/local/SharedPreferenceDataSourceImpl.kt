@@ -4,10 +4,9 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.sopt.now.data.datasource.local.SharedPreferenceDataSource
 import com.sopt.now.data.dto.local.UserDto
-import javax.inject.Inject
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
 class SharedPreferenceDataSourceImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
