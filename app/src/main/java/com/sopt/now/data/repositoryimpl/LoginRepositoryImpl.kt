@@ -22,9 +22,9 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMemberInfo(id: Int): Result<UserEntity> {
+    override suspend fun getMemberInfo(): Result<UserEntity> {
         return runCatching {
-            loginDataSource.getMemberInfo(id).data?.toUserEntity() ?: error("Data is null")
+            loginDataSource.getMemberInfo().data?.toUserEntity() ?: error("Data is null")
         }
     }
 }

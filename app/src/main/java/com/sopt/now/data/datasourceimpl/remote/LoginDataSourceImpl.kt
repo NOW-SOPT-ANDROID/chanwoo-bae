@@ -19,6 +19,6 @@ class LoginDataSourceImpl @Inject constructor(
     override suspend fun login(request: RequestLoginDto): Response<BaseResponse<Unit>> =
         loginApiService.login(request)
 
-    override suspend fun getMemberInfo(memberId: Int): BaseResponse<ResponseMemberInfo> =
-        loginApiService.getMemberInfo(memberId)
+    override suspend fun getMemberInfo(): BaseResponse<ResponseMemberInfo> =
+        loginApiService.getMemberInfo()
 }

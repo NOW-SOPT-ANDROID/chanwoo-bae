@@ -26,7 +26,5 @@ interface LoginApiService {
     ): Response<BaseResponse<Unit>>
 
     @GET("$MEMBER/$INFO")
-    suspend fun getMemberInfo(
-        @Header("memberId") id: Int
-    ): BaseResponse<ResponseMemberInfo>
+    suspend fun getMemberInfo(): BaseResponse<ResponseMemberInfo>
 }
