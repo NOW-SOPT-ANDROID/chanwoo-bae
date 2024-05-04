@@ -47,6 +47,7 @@ object RetrofitModule {
 
     @Provides
     @Singleton
+    @AUTH
     fun provideHeaderInterceptor(sharedPreferenceDataSource: SharedPreferenceDataSource): HeaderInterceptor =
         HeaderInterceptor(sharedPreferenceDataSource)
 
