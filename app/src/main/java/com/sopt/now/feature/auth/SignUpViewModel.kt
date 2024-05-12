@@ -6,6 +6,7 @@ import com.sopt.now.core.view.UiState
 import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.domain.repository.LoginRepository
 import com.sopt.now.domain.usecase.regex.PasswordValidationUseCase
+import com.sopt.now.domain.usecase.regex.PasswordValidationUseCase.Companion.PASSWORD_CORRECT
 import com.sopt.now.domain.usecase.regex.PhoneNumberValidationUseCase
 import com.sopt.now.feature.util.StringResources
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,9 +48,10 @@ class SignUpViewModel @Inject constructor(
 
     private fun checkValidateUser(userEntity: UserEntity) {
         viewModelScope.launch {
+            val pwdValidationResult = pwdValidate()
             val newState = when {
                 !idValidate() -> UiState.Failure(StringResources.ID_ERROR_MESSAGE)
-                !pwdValidate() -> UiState.Failure(StringResources.PASSWORD_ERROR_MESSAGE)
+                pwdValidationResult != PASSWORD_CORRECT -> UiState.Failure(pwdValidationResult)
                 !nickNameValidate() -> UiState.Failure(StringResources.NICKNAME_ERROR_MESSAGE)
                 !phoneNumberValidate() -> UiState.Failure(StringResources.MBTI_ERROR_MESSAGE)
                 else -> UiState.Success(userEntity)
@@ -77,7 +79,7 @@ class SignUpViewModel @Inject constructor(
     private fun idValidate(): Boolean =
         user.value.id.length in MIN_ID_LENGTH..MAX_ID_LENGTH
 
-    private fun pwdValidate(): Boolean =
+    private fun pwdValidate(): String =
         passwordValidationUseCase.invoke(user.value.password.orEmpty())
 
     private fun nickNameValidate(): Boolean =
