@@ -8,12 +8,12 @@ data class UserDto(
     val id: String,
     val password: String,
     val nickName: String,
-    val mbti: String
+    val phone: String
 ) {
     fun toUserEntity() = UserEntity(
         id = id,
         password = password,
         nickName = nickName,
-        phone = mbti
+        phone = phone
     )
 }

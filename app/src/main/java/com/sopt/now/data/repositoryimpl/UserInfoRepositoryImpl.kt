@@ -15,7 +15,7 @@ class UserInfoRepositoryImpl @Inject constructor(
                 id = user.id,
                 password = user.password.toString(),
                 nickName = user.nickName,
-                mbti = user.phone
+                phone = user.phone
             )
         )
     }

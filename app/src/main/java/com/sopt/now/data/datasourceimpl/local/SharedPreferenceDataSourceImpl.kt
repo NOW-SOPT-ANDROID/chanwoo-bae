@@ -12,8 +12,8 @@ class SharedPreferenceDataSourceImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : SharedPreferenceDataSource {
     override var memberId: Int
-        get() = sharedPreferences.getInt(CHECK_LOGIN, -1)
-        set(value) = sharedPreferences.edit { putInt(CHECK_LOGIN, value) }
+        get() = sharedPreferences.getInt(MEMBER_ID, -1)
+        set(value) = sharedPreferences.edit { putInt(MEMBER_ID, value) }
 
     override fun saveUserInfo(userDto: UserDto?) {
         val json = Json.encodeToString(userDto)
@@ -29,12 +29,12 @@ class SharedPreferenceDataSourceImpl @Inject constructor(
     override fun clear() {
         sharedPreferences.edit {
             remove(USER_INFO)
-            remove(CHECK_LOGIN)
+            remove(MEMBER_ID)
         }
     }
 
     companion object {
         const val USER_INFO = "userId"
-        const val CHECK_LOGIN = "memberId"
+        const val MEMBER_ID = "memberId"
     }
 }
