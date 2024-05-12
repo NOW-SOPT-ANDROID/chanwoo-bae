@@ -9,21 +9,19 @@ import com.sopt.now.domain.usecase.regex.PasswordValidationUseCase
 import com.sopt.now.domain.usecase.regex.PhoneNumberValidationUseCase
 import com.sopt.now.feature.util.StringResources
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import retrofit2.HttpException
+import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val passwordValidationUseCase: PasswordValidationUseCase,
     private val phoneNumberValidationUseCase: PhoneNumberValidationUseCase,
-    private val loginRepository: LoginRepository
+    private val loginRepository: LoginRepository,
 ) : ViewModel() {
 
     private val _user = MutableStateFlow<UserEntity>(
@@ -31,8 +29,8 @@ class SignUpViewModel @Inject constructor(
             id = "",
             password = "",
             nickName = "",
-            phone = ""
-        )
+            phone = "",
+        ),
     )
     val user: StateFlow<UserEntity> get() = _user
 
@@ -68,15 +66,10 @@ class SignUpViewModel @Inject constructor(
                     if (it.code == 201) {
                         _signUpResponseState.emit(UiState.Success(true))
                     } else {
-                        _signUpResponseState.emit(UiState.Failure(it.message))
+                        _signUpResponseState.emit(UiState.Failure("서버로부터 예상한 응답을 받지 못했습니다"))
                     }
                 }.onFailure { throwable ->
-                    if (throwable is HttpException && throwable.code() == 400) {
-                        val errorBody = throwable.response()?.errorBody()?.string()
-                        val jsonObject = JSONObject(errorBody)
-                        val errorMessage = jsonObject.getString("message")
-                        _signUpState.emit(UiState.Failure(errorMessage.toString()))
-                    }
+                    _signUpResponseState.emit(UiState.Failure(throwable.message.toString()))
                 }
         }
     }

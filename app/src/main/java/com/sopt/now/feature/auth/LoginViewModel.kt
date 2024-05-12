@@ -1,6 +1,5 @@
 package com.sopt.now.feature.auth
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.core.view.UiState
@@ -10,7 +9,6 @@ import com.sopt.now.domain.usecase.sharedprefusecase.GetUserIdUseCase
 import com.sopt.now.domain.usecase.sharedprefusecase.SaveUserIdUseCase
 import com.sopt.now.feature.util.KeyStorage.HEADER_ID_DEFAULT_NUM
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -18,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -69,11 +68,10 @@ class LoginViewModel @Inject constructor(
                 if (response != null) {
                     _postLoginState.emit(UiState.Success(response))
                 } else {
-                    _postLoginState.emit(UiState.Failure("잘못된 아이디와 비밀번호 입니다"))
+                    _postLoginState.emit(UiState.Failure("서버로부터 예상한 응답을 받지 못했습니다"))
                 }
             }.onFailure {
                 _postLoginState.emit(UiState.Failure(it.message.toString()))
-                Log.d("errrormsg", it.message.toString())
             }
         }
     }
