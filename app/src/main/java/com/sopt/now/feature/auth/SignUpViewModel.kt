@@ -48,10 +48,11 @@ class SignUpViewModel @Inject constructor(
 
     private fun checkValidateUser(userEntity: UserEntity) {
         viewModelScope.launch {
-            val pwdValidationResult = pwdValidate()
+            val pwdValidationResult =
+                passwordValidationUseCase.invoke(user.value.password.orEmpty())
             val newState = when {
                 !idValidate() -> UiState.Failure(StringResources.ID_ERROR_MESSAGE)
-                pwdValidationResult != PASSWORD_CORRECT -> UiState.Failure(pwdValidationResult)
+                !pwdValidate(pwdValidationResult) -> UiState.Failure(pwdValidationResult)
                 !nickNameValidate() -> UiState.Failure(StringResources.NICKNAME_ERROR_MESSAGE)
                 !phoneNumberValidate() -> UiState.Failure(StringResources.MBTI_ERROR_MESSAGE)
                 else -> UiState.Success(userEntity)
@@ -79,8 +80,8 @@ class SignUpViewModel @Inject constructor(
     private fun idValidate(): Boolean =
         user.value.id.length in MIN_ID_LENGTH..MAX_ID_LENGTH
 
-    private fun pwdValidate(): String =
-        passwordValidationUseCase.invoke(user.value.password.orEmpty())
+    private fun pwdValidate(pwdValidationResult: String): Boolean =
+        pwdValidationResult == PASSWORD_CORRECT
 
     private fun nickNameValidate(): Boolean =
         user.value.nickName.length >= MIN_NICKNAME_LENGTH
