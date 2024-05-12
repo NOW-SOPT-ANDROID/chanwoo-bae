@@ -1,8 +1,12 @@
 package com.sopt.now.core.util.context
 
+import android.app.Activity
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.util.TypedValue
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -39,3 +43,18 @@ fun Context.pxToDp(px: Int): Int {
         resources.displayMetrics
     ).toInt()
 }
+
+fun Context.hideKeyboard(view: View) {
+    val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun Context.hideKeyboardOnTouch(event: MotionEvent): Boolean {
+    if (event.action == MotionEvent.ACTION_DOWN) {
+        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow((this as Activity).currentFocus?.windowToken, 0)
+    }
+    return false
+}
+
+

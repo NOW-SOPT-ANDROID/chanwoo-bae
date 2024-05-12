@@ -2,7 +2,6 @@ package com.sopt.now.feature.auth
 
 import android.content.Intent
 import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -10,6 +9,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.sopt.now.R
 import com.sopt.now.core.base.BindingActivity
+import com.sopt.now.core.util.context.hideKeyboardOnTouch
 import com.sopt.now.core.util.context.snackBar
 import com.sopt.now.core.util.context.toast
 import com.sopt.now.core.util.intent.getSafeParcelable
@@ -93,9 +93,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        val imm: InputMethodManager =
-            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        hideKeyboardOnTouch(ev)
         return super.dispatchTouchEvent(ev)
     }
 }
