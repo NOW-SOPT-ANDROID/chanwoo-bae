@@ -13,23 +13,23 @@ class UserInfoRepositoryImpl @Inject constructor(
         sharedPreferenceDataSource.saveUserInfo(
             userDto = UserDto(
                 id = user.id,
-                password = user.password,
+                password = user.password.toString(),
                 nickName = user.nickName,
-                mbti = user.mbti
+                phone = user.phone
             )
         )
     }
 
-    override fun saveCheckLogin(isChecked: Boolean) {
-        sharedPreferenceDataSource.checkLogin = isChecked
+    override fun saveCheckLogin(isChecked: Int) {
+        sharedPreferenceDataSource.memberId = isChecked
     }
 
     override fun getUserInfo(): UserEntity {
         return sharedPreferenceDataSource.getUserInfo().toUserEntity()
     }
 
-    override fun getCheckLogin(): Boolean {
-        return sharedPreferenceDataSource.checkLogin
+    override fun getCheckLogin(): Int {
+        return sharedPreferenceDataSource.memberId
     }
 
     override fun clear() {

@@ -155,11 +155,9 @@
                         android:id="@+id/et_sign_up_mbti"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="4"
-                        android:hint="@string/sign_up_mbti_input_hint"
+                        android:hint="@string/sign_up_phone_input_hint"
                         android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:maxLength="4" />
+                        android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

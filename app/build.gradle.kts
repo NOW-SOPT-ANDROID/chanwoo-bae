@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,6 +8,9 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlinx.serialization)
 }
+
+val properties = Properties()
+properties.load(rootProject.file("local.properties").inputStream())
 
 android {
     namespace = "com.sopt.now"
@@ -17,6 +22,12 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
+
+        val authBaseUrl = (properties["base.url"] as? String)?.trim('"') ?: ""
+        val reqresBaseUrl = (properties["reqres.base.url"] as? String)?.trim('"') ?: ""
+
+        buildConfigField("String", "AUTH_BASE_URL", "\"$authBaseUrl\"")
+        buildConfigField("String", "REQRES_BASE_URL", "\"$reqresBaseUrl\"")
     }
 
     buildTypes {
@@ -36,18 +47,30 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
-        viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
 }
 
 dependencies {
+    // coil
+    implementation(libs.coil)
+
+    // retrofit
+    implementation(libs.retrofit)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+
+    // define a BOM and its version
+    implementation(platform(libs.okhttp.bom))
+
+    // define any required OkHttp artifacts without version
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
     // jetpack navi
     implementation(libs.bundles.jetpack.navi)
     // sharedPreference crypto
     implementation(libs.security.crypto)
-    // json
-    implementation(libs.kotlinx.serialization.json)
     // google
     implementation(libs.material)
     // ktx (by viewModels)

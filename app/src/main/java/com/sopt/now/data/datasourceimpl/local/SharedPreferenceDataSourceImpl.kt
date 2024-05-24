@@ -4,17 +4,16 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.sopt.now.data.datasource.local.SharedPreferenceDataSource
 import com.sopt.now.data.dto.local.UserDto
-import javax.inject.Inject
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
 class SharedPreferenceDataSourceImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : SharedPreferenceDataSource {
-    override var checkLogin: Boolean
-        get() = sharedPreferences.getBoolean(CHECK_LOGIN, false)
-        set(value) = sharedPreferences.edit { putBoolean(CHECK_LOGIN, value) }
+    override var memberId: Int
+        get() = sharedPreferences.getInt(MEMBER_ID, -1)
+        set(value) = sharedPreferences.edit { putInt(MEMBER_ID, value) }
 
     override fun saveUserInfo(userDto: UserDto?) {
         val json = Json.encodeToString(userDto)
@@ -30,12 +29,12 @@ class SharedPreferenceDataSourceImpl @Inject constructor(
     override fun clear() {
         sharedPreferences.edit {
             remove(USER_INFO)
-            remove(CHECK_LOGIN)
+            remove(MEMBER_ID)
         }
     }
 
     companion object {
         const val USER_INFO = "userId"
-        const val CHECK_LOGIN = "checkLogin"
+        const val MEMBER_ID = "memberId"
     }
 }
