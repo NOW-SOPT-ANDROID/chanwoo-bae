@@ -62,10 +62,10 @@ fun SignUpScreen(
     onSignUpBtnClick: (User) -> Unit,
     viewModel: SignUpViewModel
 ) {
-    var id by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var nickName by remember { mutableStateOf("") }
-    var mbti by remember { mutableStateOf("") }
+    var id by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var nickName by rememberSaveable { mutableStateOf("") }
+    var mbti by rememberSaveable { mutableStateOf("") }
 
     val context = LocalContext.current
     val signUpState by viewModel.signUpResponseState.collectAsState(initial = UiState.Loading)

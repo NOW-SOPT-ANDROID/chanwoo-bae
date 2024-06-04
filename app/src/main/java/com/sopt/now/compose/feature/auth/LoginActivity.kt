@@ -92,8 +92,8 @@ fun LoginScreen(
     onSignUpBtnClick: () -> Unit,
     viewModel: LoginViewModel
 ) {
-    var id by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var id by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
 
     val context = LocalContext.current
     val loginState by viewModel.loginResponseState.collectAsState(initial = UiState.Loading)
