@@ -18,16 +18,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.component.button.CustomButton
 import com.sopt.now.compose.component.text.PageTitle
@@ -96,23 +97,24 @@ fun LoginScreen(
     var password by rememberSaveable { mutableStateOf("") }
 
     val context = LocalContext.current
-    val loginState by viewModel.loginResponseState.collectAsState(initial = UiState.Loading)
+    val composeLifecycle = LocalLifecycleOwner.current.lifecycle
 
-    LaunchedEffect(loginState) {
-        viewModel.loginResponseState.collect { uiState ->
-            when (uiState) {
-                is UiState.Success -> {
-                    Toast.makeText(context, uiState.data.toString(), Toast.LENGTH_SHORT).show()
-                    navigateToMainActivity(context, uiState.data)
+    LaunchedEffect(composeLifecycle) {
+        viewModel.loginResponseState.flowWithLifecycle(lifecycle = composeLifecycle)
+            .collect { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        Toast.makeText(context, uiState.data.toString(), Toast.LENGTH_SHORT).show()
+                        navigateToMainActivity(context, uiState.data)
+                    }
+
+                    is UiState.Failure -> {
+                        Toast.makeText(context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> Unit
                 }
-
-                is UiState.Failure -> {
-                    Toast.makeText(context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
-                }
-
-                else -> Unit
             }
-        }
     }
 
     Scaffold(
