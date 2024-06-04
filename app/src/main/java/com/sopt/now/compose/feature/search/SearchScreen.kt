@@ -18,7 +18,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.component.row.ReqresDummyRow
 import com.sopt.now.compose.core.view.UiState
-import com.sopt.now.compose.feature.model.ReqresEntity
 
 @Composable
 fun SearchScreen() {
@@ -32,12 +31,12 @@ fun SearchScreen() {
 
     val reqresListState by viewModel.getReqresListState.collectAsStateWithLifecycle(lifecycle)
 
-    val reqresList = when (reqresListState) {
-        is UiState.Success -> (reqresListState as UiState.Success<List<ReqresEntity>>).data
+    val reqresList = when (val reqresListState = reqresListState) {
+        is UiState.Success -> reqresListState.data
         is UiState.Failure -> {
             Toast.makeText(
                 context,
-                (reqresListState as UiState.Failure).errorMessage,
+                reqresListState.errorMessage,
                 Toast.LENGTH_SHORT
             ).show()
             null
