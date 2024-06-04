@@ -27,7 +27,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.sopt.now.compose.feature.model.HomeSealedItem
+import com.sopt.now.compose.feature.model.ReqresEntity
 import com.sopt.now.compose.feature.util.DateUtils
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
@@ -124,6 +126,50 @@ fun BirthRow(
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
             modifier = modifier
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFFE47178),
+                    shape = RoundedCornerShape(50.dp)
+                )
+                .padding(horizontal = 12.dp, vertical = 4.dp)
+        )
+    }
+}
+
+@Composable
+fun ReqresDummyRow(
+    data: ReqresEntity
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Image(
+            painter = rememberAsyncImagePainter(model = data.avatar),
+            contentDescription = null,
+            modifier = Modifier
+                .size(50.dp)
+                .clip(CircleShape)
+                .aspectRatio(1f)
+        )
+        Text(
+            modifier = Modifier
+                .padding(horizontal = 16.dp),
+            text = "${data.firstName} ${data.lastName}",
+            fontSize = 14.sp,
+            color = Color(0xFF0E0E0E)
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Text(
+            text = data.email,
+            fontSize = 12.sp,
+            color = Color(0xFF0E0E0E),
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+            modifier = Modifier
                 .border(
                     width = 1.dp,
                     color = Color(0xFFE47178),

@@ -1,7 +1,9 @@
 package com.sopt.now.compose.feature.auth
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
@@ -15,20 +17,24 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sopt.now.compose.R
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.component.button.CustomButton
 import com.sopt.now.compose.component.text.PageTitle
 import com.sopt.now.compose.component.textfiled.CustomTextFieldWithTitle
-import com.sopt.now.compose.core.context.toast
 import com.sopt.now.compose.core.intent.getSafeParcelable
+import com.sopt.now.compose.core.view.UiState
 import com.sopt.now.compose.feature.MainActivity
 import com.sopt.now.compose.feature.model.User
 import com.sopt.now.compose.feature.util.KeyStorage
@@ -42,6 +48,7 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         initRegisterResultLauncher()
         setContent {
+            val viewModel: LoginViewModel = viewModel()
             NOWSOPTAndroidTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -49,11 +56,12 @@ class LoginActivity : ComponentActivity() {
                 ) {
                     LoginScreen(
                         onLoginBtnClick = { id, pwd ->
-                            handleLoginState(id, pwd)
+                            viewModel.postLogin(id, pwd)
                         },
                         onSignUpBtnClick = {
                             navigateToSignUp()
-                        }
+                        },
+                        viewModel
                     )
                 }
             }
@@ -77,48 +85,38 @@ class LoginActivity : ComponentActivity() {
         val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
         resultLauncher.launch(intent)
     }
-
-    private fun handleLoginState(
-        idTextField: String,
-        pwdTextField: String
-    ) {
-        if (userData?.id.isNullOrEmpty() && userData?.password.isNullOrEmpty()) {
-            toast(getString(R.string.login_first_sign_up_null))
-            return
-        }
-        when {
-            userData?.id != idTextField -> {
-                toast(getString(R.string.login_not_id_equal))
-            }
-
-            userData?.password != pwdTextField -> {
-                toast(getString(R.string.login_not_pwed_equal))
-            }
-
-            else -> {
-                navigateToMainActivity(userData)
-                toast(getString(R.string.login_completed))
-            }
-        }
-    }
-
-    private fun navigateToMainActivity(userData: User?) {
-        Intent(this@LoginActivity, MainActivity::class.java).apply {
-            putExtra(KeyStorage.USER_INPUT, userData)
-        }.also {
-            startActivity(it)
-            finish()
-        }
-    }
 }
 
 @Composable
 fun LoginScreen(
     onLoginBtnClick: (String, String) -> Unit,
-    onSignUpBtnClick: () -> Unit
+    onSignUpBtnClick: () -> Unit,
+    viewModel: LoginViewModel
 ) {
-    var id by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var id by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val composeLifecycle = LocalLifecycleOwner.current.lifecycle
+
+    LaunchedEffect(composeLifecycle) {
+        viewModel.loginResponseState.flowWithLifecycle(lifecycle = composeLifecycle)
+            .collect { uiState ->
+                when (uiState) {
+                    is UiState.Success -> {
+                        Toast.makeText(context, uiState.data.toString(), Toast.LENGTH_SHORT).show()
+                        navigateToMainActivity(context, uiState.data)
+                    }
+
+                    is UiState.Failure -> {
+                        Toast.makeText(context, uiState.errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> Unit
+                }
+            }
+    }
+
     Scaffold(
         modifier = Modifier
             .padding(20.dp)
@@ -172,14 +170,19 @@ fun LoginScreen(
     }
 }
 
+private fun navigateToMainActivity(context: Context, data: Int) {
+    val currentContext = context as ComponentActivity
+    Intent(currentContext, MainActivity::class.java).apply {
+        putExtra(KeyStorage.USER_INPUT, data)
+    }.also {
+        currentContext.startActivity(it)
+        currentContext.finish()
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     NOWSOPTAndroidTheme {
-        LoginScreen(
-            onLoginBtnClick = { _, _ ->
-            },
-            onSignUpBtnClick = {}
-        )
     }
 }

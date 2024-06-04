@@ -8,5 +8,5 @@ data class User(
     val id: String,
     val password: String,
     val nickName: String,
-    val mbti: String
+    val phone: String
 ) : Parcelable
