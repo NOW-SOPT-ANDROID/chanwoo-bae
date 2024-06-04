@@ -49,7 +49,7 @@ class SignUpActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     SignUpScreen(
-                        onSignUpBtnClick = { user -> viewModel.setUser(user) },
+                        onSignUpBtnClick = { user -> viewModel.postSignUp(user) },
                         viewModel
                     )
                 }

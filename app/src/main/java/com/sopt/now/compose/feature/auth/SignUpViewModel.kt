@@ -17,10 +17,6 @@ class SignUpViewModel : ViewModel() {
     private val _signUpResponseState = MutableSharedFlow<UiState<User>>()
     val signUpResponseState: SharedFlow<UiState<User>> get() = _signUpResponseState.asSharedFlow()
 
-    fun setUser(user: User) {
-        postSignUp(user)
-    }
-
     fun postSignUp(userEntity: User) {
         viewModelScope.launch {
             runCatching {
