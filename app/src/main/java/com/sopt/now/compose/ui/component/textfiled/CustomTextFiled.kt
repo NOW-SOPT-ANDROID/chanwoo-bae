@@ -1,4 +1,4 @@
-package com.sopt.now.compose.component.textfiled
+package com.sopt.now.compose.ui.component.textfiled
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

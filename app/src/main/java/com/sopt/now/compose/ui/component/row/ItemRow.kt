@@ -1,4 +1,4 @@
-package com.sopt.now.compose.component.row
+package com.sopt.now.compose.ui.component.row
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border

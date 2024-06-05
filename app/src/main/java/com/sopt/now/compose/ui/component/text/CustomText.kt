@@ -1,4 +1,4 @@
-package com.sopt.now.compose.component.text
+package com.sopt.now.compose.ui.component.text
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

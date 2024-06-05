@@ -1,4 +1,4 @@
-package com.sopt.now.compose.component.button
+package com.sopt.now.compose.ui.component.button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

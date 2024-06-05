@@ -2,10 +2,10 @@ package com.sopt.now.compose.feature.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.now.compose.core.view.UiState
+import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
 import com.sopt.now.compose.data.api.UserIdProvider
-import com.sopt.now.compose.data.request.RequestLoginDto
+import com.sopt.now.compose.data.dto.request.RequestLoginDto
 import com.sopt.now.compose.feature.util.KeyStorage.ID_DEFAULT
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

@@ -19,9 +19,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.R
-import com.sopt.now.compose.component.row.CustomTextRowPair
-import com.sopt.now.compose.component.text.PageTitle
-import com.sopt.now.compose.core.view.UiState
+import com.sopt.now.compose.ui.component.row.CustomTextRowPair
+import com.sopt.now.compose.ui.component.text.PageTitle
+import com.sopt.now.compose.ui.core.view.UiState
 
 @Composable
 fun MyPageScreen(id: Int) {

@@ -1,4 +1,4 @@
-package com.sopt.now.compose.data.request
+package com.sopt.now.compose.data.dto.request
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

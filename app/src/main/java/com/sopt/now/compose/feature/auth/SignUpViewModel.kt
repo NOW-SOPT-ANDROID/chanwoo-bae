@@ -2,9 +2,9 @@ package com.sopt.now.compose.feature.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.now.compose.core.view.UiState
+import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
-import com.sopt.now.compose.data.request.RequestSignUpDto
+import com.sopt.now.compose.data.dto.request.RequestSignUpDto
 import com.sopt.now.compose.feature.model.User
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

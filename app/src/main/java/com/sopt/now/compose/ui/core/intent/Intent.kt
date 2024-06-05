@@ -1,4 +1,4 @@
-package com.sopt.now.compose.core.intent
+package com.sopt.now.compose.ui.core.intent
 
 import android.app.Activity
 import android.content.Context

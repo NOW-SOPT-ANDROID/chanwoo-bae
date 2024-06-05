@@ -2,7 +2,7 @@ package com.sopt.now.compose.feature.mypage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.now.compose.core.view.UiState
+import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
 import com.sopt.now.compose.feature.model.User
 import kotlinx.coroutines.flow.MutableStateFlow

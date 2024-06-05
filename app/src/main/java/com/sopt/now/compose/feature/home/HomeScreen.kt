@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.R
-import com.sopt.now.compose.component.row.BirthRow
-import com.sopt.now.compose.component.row.FriendRowOnCard
-import com.sopt.now.compose.component.row.ProfileRow
-import com.sopt.now.compose.component.text.TitleWithDivider
+import com.sopt.now.compose.ui.component.row.BirthRow
+import com.sopt.now.compose.ui.component.row.FriendRowOnCard
+import com.sopt.now.compose.ui.component.row.ProfileRow
+import com.sopt.now.compose.ui.component.text.TitleWithDivider
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 @OptIn(ExperimentalFoundationApi::class)

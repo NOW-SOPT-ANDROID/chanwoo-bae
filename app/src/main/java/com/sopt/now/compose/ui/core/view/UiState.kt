@@ -1,4 +1,4 @@
-package com.sopt.now.compose.core.view
+package com.sopt.now.compose.ui.core.view
 
 sealed interface UiState<out T> {
 

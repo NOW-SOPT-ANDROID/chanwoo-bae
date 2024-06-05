@@ -29,10 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sopt.now.compose.component.button.CustomButton
-import com.sopt.now.compose.component.text.PageTitle
-import com.sopt.now.compose.component.textfiled.CustomTextFieldWithTitle
-import com.sopt.now.compose.core.view.UiState
+import com.sopt.now.compose.ui.component.button.CustomButton
+import com.sopt.now.compose.ui.component.text.PageTitle
+import com.sopt.now.compose.ui.component.textfiled.CustomTextFieldWithTitle
+import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.feature.model.User
 import com.sopt.now.compose.feature.util.KeyStorage
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme

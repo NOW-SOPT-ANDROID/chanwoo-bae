@@ -1,4 +1,4 @@
-package com.sopt.now.compose.core.context
+package com.sopt.now.compose.ui.core.context
 
 import android.content.Context
 import android.util.TypedValue

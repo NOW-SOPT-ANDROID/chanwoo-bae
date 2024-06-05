@@ -1,4 +1,4 @@
-package com.sopt.now.compose.component.row
+package com.sopt.now.compose.ui.component.row
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
