@@ -9,5 +9,5 @@ interface ReqresService {
     @GET("api/users")
     suspend fun getUserList(
         @Query("page") page: Int
-    ): Response<ReqresResponse>
+    ): ReqresResponse
 }
