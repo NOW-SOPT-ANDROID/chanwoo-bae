@@ -4,7 +4,7 @@ import com.sopt.now.compose.data.api.service.ApiKeyStorage.INFO
 import com.sopt.now.compose.data.api.service.ApiKeyStorage.JOIN
 import com.sopt.now.compose.data.api.service.ApiKeyStorage.LOGIN
 import com.sopt.now.compose.data.api.service.ApiKeyStorage.MEMBER
-import com.sopt.now.compose.data.api.dto.request.RequestLoginDto
+import com.sopt.now.compose.data.api.dto.request.LoginRequest
 import com.sopt.now.compose.data.api.dto.request.SignUpRequest
 import com.sopt.now.compose.data.api.dto.response.BaseResponse
 import com.sopt.now.compose.data.api.dto.response.MemberInfoResponse
@@ -21,7 +21,7 @@ interface AuthService {
 
     @POST("$MEMBER/$LOGIN")
     suspend fun login(
-        @Body request: RequestLoginDto
+        @Body request: LoginRequest
     ): Response<BaseResponse<Unit>>
 
     @GET("$MEMBER/$INFO")

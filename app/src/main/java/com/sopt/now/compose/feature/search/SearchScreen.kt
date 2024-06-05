@@ -18,7 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.ui.component.row.ReqresDummyRow
 import com.sopt.now.compose.ui.core.view.UiState
-import com.sopt.now.compose.ui.core.viewmodel.ViewModelFactory
+import com.sopt.now.compose.ui.core.factory.ViewModelFactory
 
 @Composable
 fun SearchScreen() {
