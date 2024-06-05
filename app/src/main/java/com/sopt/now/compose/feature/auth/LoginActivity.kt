@@ -30,14 +30,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.sopt.now.compose.feature.MainActivity
+import com.sopt.now.compose.feature.util.KeyStorage
+import com.sopt.now.compose.model.User
 import com.sopt.now.compose.ui.component.button.CustomButton
 import com.sopt.now.compose.ui.component.text.PageTitle
 import com.sopt.now.compose.ui.component.textfiled.CustomTextFieldWithTitle
+import com.sopt.now.compose.ui.core.factory.ViewModelFactory
 import com.sopt.now.compose.ui.core.intent.getSafeParcelable
 import com.sopt.now.compose.ui.core.view.UiState
-import com.sopt.now.compose.feature.MainActivity
-import com.sopt.now.compose.model.User
-import com.sopt.now.compose.feature.util.KeyStorage
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 
 class LoginActivity : ComponentActivity() {
@@ -48,7 +49,7 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         initRegisterResultLauncher()
         setContent {
-            val viewModel: LoginViewModel = viewModel()
+            val viewModel: LoginViewModel = viewModel(factory = ViewModelFactory())
             NOWSOPTAndroidTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),

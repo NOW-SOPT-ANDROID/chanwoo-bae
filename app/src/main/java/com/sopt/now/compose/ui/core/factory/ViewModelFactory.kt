@@ -7,6 +7,7 @@ import com.sopt.now.compose.data.repository.AuthRepositoryImpl
 import com.sopt.now.compose.data.repository.ReqresRepositoryImpl
 import com.sopt.now.compose.data_api.auth.AuthRepository
 import com.sopt.now.compose.domain.ReqresUseCase
+import com.sopt.now.compose.feature.auth.LoginViewModel
 import com.sopt.now.compose.feature.auth.SignUpViewModel
 import com.sopt.now.compose.feature.mypage.MyPageViewModel
 import com.sopt.now.compose.feature.search.SearchViewModel
@@ -26,6 +27,10 @@ class ViewModelFactory : ViewModelProvider.Factory {
 
             modelClass.isAssignableFrom(MyPageViewModel::class.java) -> {
                 MyPageViewModel(authRepository) as T
+            }
+
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
+                LoginViewModel(authRepository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
