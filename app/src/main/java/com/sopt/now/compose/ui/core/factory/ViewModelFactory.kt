@@ -17,9 +17,7 @@ class ViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
-                val repository =
-                    ReqresUseCase(ReqresRepositoryImpl(ApiFactory.ServicePool.userService))
-                SearchViewModel(repository) as T
+                SearchViewModel(provideReqresUseCase()) as T
             }
 
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
@@ -34,8 +32,10 @@ class ViewModelFactory : ViewModelProvider.Factory {
         }
     }
 
-    private fun provideAuthRepository(): AuthRepository {
-        return AuthRepositoryImpl(ApiFactory.ServicePool.authService)
-    }
+    private fun provideAuthRepository(): AuthRepository =
+        AuthRepositoryImpl(ApiFactory.ServicePool.authService)
+
+    private fun provideReqresUseCase(): ReqresUseCase =
+        ReqresUseCase(ReqresRepositoryImpl(ApiFactory.ServicePool.userService))
 
 }
