@@ -6,6 +6,7 @@ import com.sopt.now.compose.model.NetWorkConnectError
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 
 fun Throwable.getErrorMessage(): String {
@@ -28,4 +29,10 @@ fun <T> Throwable.handleThrowable(): Result<T> {
             else -> this
         }
     )
+}
+
+fun Response<*>?.getResponseErrorMessage(): String {
+    val errorBody = this?.errorBody()?.string() ?: return "Unknown error"
+    val errorResponse = Json.decodeFromString<BaseResponse<Unit>>(errorBody)
+    return errorResponse.message
 }
