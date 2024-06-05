@@ -28,8 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
-import com.sopt.now.compose.feature.model.HomeSealedItem
-import com.sopt.now.compose.feature.model.ReqresEntity
+import com.sopt.now.compose.model.HomeSealedItem
+import com.sopt.now.compose.model.ReqresEntity
 import com.sopt.now.compose.feature.util.DateUtils
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 

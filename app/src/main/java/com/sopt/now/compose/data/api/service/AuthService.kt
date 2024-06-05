@@ -1,13 +1,13 @@
 package com.sopt.now.compose.data.api.service
 
-import com.sopt.now.compose.data.api.ApiKeyStorage.INFO
-import com.sopt.now.compose.data.api.ApiKeyStorage.JOIN
-import com.sopt.now.compose.data.api.ApiKeyStorage.LOGIN
-import com.sopt.now.compose.data.api.ApiKeyStorage.MEMBER
-import com.sopt.now.compose.data.dto.request.RequestLoginDto
-import com.sopt.now.compose.data.dto.request.RequestSignUpDto
-import com.sopt.now.compose.data.dto.response.BaseResponse
-import com.sopt.now.compose.data.dto.response.ResponseMemberInfo
+import com.sopt.now.compose.data.api.service.ApiKeyStorage.INFO
+import com.sopt.now.compose.data.api.service.ApiKeyStorage.JOIN
+import com.sopt.now.compose.data.api.service.ApiKeyStorage.LOGIN
+import com.sopt.now.compose.data.api.service.ApiKeyStorage.MEMBER
+import com.sopt.now.compose.data.api.dto.request.RequestLoginDto
+import com.sopt.now.compose.data.api.dto.request.RequestSignUpDto
+import com.sopt.now.compose.data.api.dto.response.BaseResponse
+import com.sopt.now.compose.data.api.dto.response.MemberInfoResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -25,5 +25,5 @@ interface AuthService {
     ): Response<BaseResponse<Unit>>
 
     @GET("$MEMBER/$INFO")
-    suspend fun getMemberInfo(): Response<BaseResponse<ResponseMemberInfo>>
+    suspend fun getMemberInfo(): Response<BaseResponse<MemberInfoResponse>>
 }

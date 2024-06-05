@@ -33,7 +33,7 @@ import com.sopt.now.compose.ui.component.button.CustomButton
 import com.sopt.now.compose.ui.component.text.PageTitle
 import com.sopt.now.compose.ui.component.textfiled.CustomTextFieldWithTitle
 import com.sopt.now.compose.ui.core.view.UiState
-import com.sopt.now.compose.feature.model.User
+import com.sopt.now.compose.model.User
 import com.sopt.now.compose.feature.util.KeyStorage
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 

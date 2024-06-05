@@ -1,4 +1,4 @@
-package com.sopt.now.compose.feature.model
+package com.sopt.now.compose.model
 
 data class ReqresEntity(
     val id: Int,

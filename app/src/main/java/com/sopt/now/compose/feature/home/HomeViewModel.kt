@@ -2,7 +2,7 @@ package com.sopt.now.compose.feature.home
 
 import androidx.lifecycle.ViewModel
 import com.sopt.now.compose.R
-import com.sopt.now.compose.feature.model.HomeSealedItem
+import com.sopt.now.compose.model.HomeSealedItem
 import com.sopt.now.compose.feature.util.DateUtils
 import com.sopt.now.compose.feature.util.DateUtils.today
 import com.sopt.now.compose.feature.util.DateUtils.yesterday

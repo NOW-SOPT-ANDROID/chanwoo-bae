@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
-import com.sopt.now.compose.feature.model.User
+import com.sopt.now.compose.data.mapper.toUserData
+import com.sopt.now.compose.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,7 +28,7 @@ class MyPageViewModel : ViewModel() {
             }.onSuccess { response ->
                 if (response.isSuccessful) {
                     val data = response.body()?.data
-                    data?.let { _getMemberInfoState.emit(UiState.Success(it.toMemberInfo())) }
+                    data?.let { _getMemberInfoState.emit(UiState.Success(it.toUserData())) }
                 } else {
                     val errorBody = response.errorBody()?.string()
                     val jsonObject = JSONObject(errorBody.toString())

@@ -36,7 +36,7 @@ import com.sopt.now.compose.ui.component.textfiled.CustomTextFieldWithTitle
 import com.sopt.now.compose.ui.core.intent.getSafeParcelable
 import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.feature.MainActivity
-import com.sopt.now.compose.feature.model.User
+import com.sopt.now.compose.model.User
 import com.sopt.now.compose.feature.util.KeyStorage
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
 

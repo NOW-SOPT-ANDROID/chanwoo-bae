@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.data.api.ApiFactory
-import com.sopt.now.compose.feature.model.ReqresEntity
+import com.sopt.now.compose.data.mapper.toReqresData
+import com.sopt.now.compose.model.ReqresEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,7 +23,7 @@ class SearchViewModel : ViewModel() {
                 ApiFactory.ServicePool.userService.getUserList(page)
             }.onSuccess { response ->
                 if (response.isSuccessful) {
-                    val reqresUserList = response.body()?.toReqresList()
+                    val reqresUserList = response.body()?.toReqresData()
                     if (reqresUserList != null) {
                         _getReqresListState.emit(UiState.Success(reqresUserList))
                     } else {

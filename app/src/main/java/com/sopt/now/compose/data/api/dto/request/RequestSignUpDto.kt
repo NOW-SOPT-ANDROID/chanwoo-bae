@@ -1,6 +1,6 @@
-package com.sopt.now.compose.data.dto.request
+package com.sopt.now.compose.data.api.dto.request
 
-import com.sopt.now.compose.feature.model.User
+import com.sopt.now.compose.model.User
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
