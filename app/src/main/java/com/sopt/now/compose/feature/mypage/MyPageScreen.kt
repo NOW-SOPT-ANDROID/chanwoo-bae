@@ -21,11 +21,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.R
 import com.sopt.now.compose.ui.component.row.CustomTextRowPair
 import com.sopt.now.compose.ui.component.text.PageTitle
+import com.sopt.now.compose.ui.core.factory.ViewModelFactory
 import com.sopt.now.compose.ui.core.view.UiState
 
 @Composable
 fun MyPageScreen(id: Int) {
-    val viewModel: MyPageViewModel = viewModel()
+    val viewModel: MyPageViewModel = viewModel(factory = ViewModelFactory())
     val context = LocalContext.current
 
     val memberInfoState =

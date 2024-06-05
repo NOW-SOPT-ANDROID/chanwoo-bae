@@ -7,6 +7,7 @@ import com.sopt.now.compose.data.repository.AuthRepositoryImpl
 import com.sopt.now.compose.data.repository.ReqresRepositoryImpl
 import com.sopt.now.compose.domain.ReqresUseCase
 import com.sopt.now.compose.feature.auth.SignUpViewModel
+import com.sopt.now.compose.feature.mypage.MyPageViewModel
 import com.sopt.now.compose.feature.search.SearchViewModel
 
 class ViewModelFactory : ViewModelProvider.Factory {
@@ -25,18 +26,12 @@ class ViewModelFactory : ViewModelProvider.Factory {
                 SignUpViewModel(repository) as T
             }
 
-            /*  modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
-                  val repository =
-                      AuthRepositoryImpl(AuthDataSourceImpl(ApiFactory.ServicePool.authService))
-                  SignUpViewModel(repository) as T
-              }
+            modelClass.isAssignableFrom(MyPageViewModel::class.java) -> {
+                val repository =
+                    AuthRepositoryImpl(ApiFactory.ServicePool.authService)
+                MyPageViewModel(repository) as T
+            }
 
-              modelClass.isAssignableFrom(DoAndroidViewModel::class.java) -> {
-                  val repository =
-                      ReqresRepositoryImpl(ReqresDataSourceImpl(ApiFactory.ServicePool.userService))
-                  DoAndroidViewModel(repository) as T
-              }*/
-            // Add more ViewModel cases as needed
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
