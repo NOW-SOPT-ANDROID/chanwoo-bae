@@ -1,36 +1,37 @@
 package com.sopt.now.data.repositoryimpl.extensions
 
-import com.sopt.now.data.repositoryimpl.extensions.KeyStorage.MESSAGE
-import com.sopt.now.data.repositoryimpl.extensions.KeyStorage.UN_KNOWN_ERROR
-import org.json.JSONException
-import org.json.JSONObject
+import com.sopt.now.data.dto.remote.BaseResponse
+import com.sopt.now.domain.entity.ApiError
+import com.sopt.now.domain.entity.NetWorkConnectError
+import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import retrofit2.Response
+import java.io.IOException
 
-// Throwable에서 에러 메시지 추출하는 확장 함수
 fun Throwable.getErrorMessage(): String {
     return when (this) {
         is HttpException -> {
-            val errorBody = response()?.errorBody()?.string() ?: return UN_KNOWN_ERROR
-            val jsonObject = JSONObject(errorBody)
-            jsonObject.getString(MESSAGE)
+            val errorBody = response()?.errorBody()?.string() ?: return "Unknown error"
+            val errorResponse = Json.decodeFromString<BaseResponse<Unit>>(errorBody)
+            errorResponse.message
         }
 
-        else -> "알 수 없는 오류가 발생했습니다."
+        else -> "An unknown error occurred."
     }
 }
 
-// Response에 대한 확장 함수
-fun Response<*>?.getErrorMessage(): String {
-    val errorBody = this?.errorBody()?.string() ?: return UN_KNOWN_ERROR
-    return try {
-        JSONObject(errorBody).getString(MESSAGE)
-    } catch (e: JSONException) {
-        "Error parsing error message"
-    }
+fun <T> Throwable.handleThrowable(): Result<T> {
+    return Result.failure(
+        when (this) {
+            is HttpException -> ApiError(this.getErrorMessage())
+            is IOException -> NetWorkConnectError("인터넷에 연결해 주세요")
+            else -> this
+        }
+    )
 }
 
-object KeyStorage {
-    const val MESSAGE = "message"
-    const val UN_KNOWN_ERROR = "Unknown error"
+fun Response<*>?.getResponseErrorMessage(): String {
+    val errorBody = this?.errorBody()?.string() ?: return "Unknown error"
+    val errorResponse = Json.decodeFromString<BaseResponse<Unit>>(errorBody)
+    return errorResponse.message
 }

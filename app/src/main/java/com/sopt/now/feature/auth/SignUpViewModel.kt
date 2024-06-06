@@ -3,6 +3,8 @@ package com.sopt.now.feature.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sopt.now.core.view.UiState
+import com.sopt.now.domain.entity.ApiError
+import com.sopt.now.domain.entity.NetWorkConnectError
 import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.domain.repository.LoginRepository
 import com.sopt.now.domain.usecase.regex.PasswordValidationUseCase
@@ -66,13 +68,12 @@ class SignUpViewModel @Inject constructor(
             _signUpState.emit(UiState.Loading)
             loginRepository.signUp(userEntity)
                 .onSuccess {
-                    if (it.code == 201) {
-                        _signUpResponseState.emit(UiState.Success(true))
-                    } else {
-                        _signUpResponseState.emit(UiState.Failure("서버로부터 예상한 응답을 받지 못했습니다"))
+                    _signUpResponseState.emit(UiState.Success(true))
+                }.onFailure {
+                    when (it) {
+                        is ApiError, is NetWorkConnectError ->
+                            _signUpResponseState.emit(UiState.Failure(it.message.toString()))
                     }
-                }.onFailure { throwable ->
-                    _signUpResponseState.emit(UiState.Failure(throwable.message.toString()))
                 }
         }
     }

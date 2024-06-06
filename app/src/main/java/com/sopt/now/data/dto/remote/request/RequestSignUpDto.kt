@@ -16,7 +16,7 @@ data class RequestSignUpDto(
     val phone: String
 ) {
     companion object {
-        fun toSignUpDto(entity: UserEntity): RequestSignUpDto {
+        fun UserEntity.toSignUpDto(entity: UserEntity): RequestSignUpDto {
             return RequestSignUpDto(
                 authenticationId = entity.id,
                 nickname = entity.nickName,
