@@ -53,6 +53,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     // coil
     implementation(libs.coil)
 
