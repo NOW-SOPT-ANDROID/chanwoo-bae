@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sopt.now.compose.feature.MainActivity
 import com.sopt.now.compose.feature.util.KeyStorage
@@ -40,6 +41,8 @@ import com.sopt.now.compose.ui.core.factory.ViewModelFactory
 import com.sopt.now.compose.ui.core.intent.getSafeParcelable
 import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class LoginActivity : ComponentActivity() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
@@ -98,11 +101,11 @@ fun LoginScreen(
     var password by rememberSaveable { mutableStateOf("") }
 
     val context = LocalContext.current
-    val composeLifecycle = LocalLifecycleOwner.current.lifecycle
+    val composeLifecycle = LocalLifecycleOwner.current
 
     LaunchedEffect(composeLifecycle) {
-        viewModel.loginResponseState.flowWithLifecycle(lifecycle = composeLifecycle)
-            .collect { uiState ->
+        viewModel.loginResponseState.flowWithLifecycle(lifecycle = composeLifecycle.lifecycle)
+            .onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> {
                         Toast.makeText(context, uiState.data.toString(), Toast.LENGTH_SHORT).show()
@@ -115,7 +118,7 @@ fun LoginScreen(
 
                     else -> Unit
                 }
-            }
+            }.launchIn(composeLifecycle.lifecycleScope)
     }
 
     Scaffold(
