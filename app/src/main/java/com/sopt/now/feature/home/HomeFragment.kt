@@ -32,8 +32,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun initMultiRecyclerView() {
         val homeAdapter = HomeMultiAdapter(
-            onProfileClicked = { _ -> navigateToMyPageFragment() },
-            onFriendClicked = { friend -> navigateToHomeDetailFragment(friend) }
+            onProfileClicked = { navigateToMyPageFragment() },
+            onFriendClicked = ::navigateToHomeDetailFragment
         ).apply {
             setFriendList(getHomeSealedItemList())
         }
