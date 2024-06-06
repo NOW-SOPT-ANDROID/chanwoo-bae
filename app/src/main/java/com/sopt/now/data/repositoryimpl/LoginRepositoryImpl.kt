@@ -11,7 +11,6 @@ import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.domain.repository.LoginRepository
 import javax.inject.Inject
 
-
 class LoginRepositoryImpl @Inject constructor(
     private val loginDataSource: LoginDataSource,
 ) : LoginRepository {
@@ -34,9 +33,9 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMemberInfo(): Result<UserEntity> {
-        return runCatching {
+    override suspend fun getMemberInfo(): Result<UserEntity> =
+        runCatching {
             loginDataSource.getMemberInfo().data?.toUserEntity() ?: throw Exception("data is null")
         }
-    }
+
 }
