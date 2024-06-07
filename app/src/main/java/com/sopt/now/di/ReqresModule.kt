@@ -1,9 +1,9 @@
 package com.sopt.now.di
 
-import com.sopt.now.data.api.ReqresService
-import com.sopt.now.data.datasource.remote.ReqresDataSource
-import com.sopt.now.data.datasourceimpl.remote.ReqresDataSourceImpl
 import com.sopt.now.data.repositoryimpl.ReqresRepositoryImpl
+import com.sopt.now.data_remote.api.ReqresService
+import com.sopt.now.data_remote.datasource.ReqresDataSource
+import com.sopt.now.data_remote.datasourceimpl.ReqresDataSourceImpl
 import com.sopt.now.di.qualifier.REQRES
 import com.sopt.now.domain.repository.ReqresRepository
 import dagger.Binds
@@ -11,8 +11,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,7 +30,7 @@ object ReqresModule {
         @Singleton
         @Binds
         fun bindsReqresRepository(reqresDomainRepository: ReqresRepositoryImpl):
-            ReqresRepository
+                ReqresRepository
     }
 
     @Module

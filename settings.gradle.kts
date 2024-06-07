@@ -16,3 +16,6 @@ dependencyResolutionManagement {
 rootProject.name = "NOW SOPT Android"
 include(":app")
 include(":domain")
+include(":data")
+include(":data-remote")
+include(":data-local")

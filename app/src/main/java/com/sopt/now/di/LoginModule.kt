@@ -1,9 +1,9 @@
 package com.sopt.now.di
 
-import com.sopt.now.data.api.LoginApiService
-import com.sopt.now.data.datasource.remote.LoginDataSource
-import com.sopt.now.data.datasourceimpl.remote.LoginDataSourceImpl
 import com.sopt.now.data.repositoryimpl.LoginRepositoryImpl
+import com.sopt.now.data_remote.api.LoginApiService
+import com.sopt.now.data_remote.datasource.LoginDataSource
+import com.sopt.now.data_remote.datasourceimpl.LoginDataSourceImpl
 import com.sopt.now.di.qualifier.AUTH
 import com.sopt.now.domain.repository.LoginRepository
 import dagger.Binds
@@ -11,8 +11,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,7 +30,7 @@ object LoginModule {
         @Singleton
         @Binds
         fun bindsLoginRepository(loginRepository: LoginRepositoryImpl):
-            LoginRepository
+                LoginRepository
     }
 
     @Module

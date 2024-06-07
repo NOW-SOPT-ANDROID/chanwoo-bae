@@ -1,9 +1,9 @@
 package com.sopt.now.di
 
-import com.sopt.now.data.datasource.local.SharedPreferenceDataSource
-import javax.inject.Inject
+import com.sopt.now.data_local.datasource.SharedPreferenceDataSource
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
 class HeaderInterceptor @Inject constructor(
     private val sharedPreferenceDataSource: SharedPreferenceDataSource
