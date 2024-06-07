@@ -55,6 +55,9 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data-remote"))
+    implementation(project(":data-local"))
+    implementation(project(":data"))
+    implementation(project(":core-ui"))
 
     // coil
     implementation(libs.coil)
@@ -81,8 +84,7 @@ dependencies {
     implementation(libs.fragment.ktx)
     // dagger hilt
     implementation(libs.dagger.hilt)
-    implementation(project(":data-local"))
-    implementation(project(":data"))
+
     kapt(libs.dagger.hilt.compiler)
     // 기초 androidx 라이브러리 ("core-ktx", "constraintlayout", "appcompat", "activity")
     implementation(libs.bundles.androidx)

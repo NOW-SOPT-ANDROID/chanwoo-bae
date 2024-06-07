@@ -1,4 +1,4 @@
-package com.sopt.now.core.util.fragment
+package com.sopt.now.core_ui.util.fragment
 
 import android.view.View
 import android.widget.Toast

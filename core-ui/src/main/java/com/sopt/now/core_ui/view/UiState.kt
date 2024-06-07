@@ -1,8 +1,8 @@
-package com.sopt.now.core.view
+package com.sopt.now.core_ui.view
 
 sealed interface UiState<out T> {
 
-    object Loading : UiState<Nothing>
+    data object Loading : UiState<Nothing>
 
     data class Success<T>(
         val data: T
