@@ -3,10 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
-    alias(libs.plugins.kotlinx.serialization)
 }
 
 val properties = Properties()
@@ -47,8 +45,8 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
-        dataBinding = true
         buildConfig = true
+        dataBinding = true
     }
 }
 
@@ -58,13 +56,13 @@ dependencies {
     implementation(project(":data-local"))
     implementation(project(":data"))
     implementation(project(":core-ui"))
+    implementation(project(":feature"))
 
-    // coil
-    implementation(libs.coil)
+    implementation(libs.security.crypto)
 
     // retrofit
-    implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
 
     // define a BOM and its version
@@ -73,19 +71,9 @@ dependencies {
     // define any required OkHttp artifacts without version
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
-    // jetpack navi
-    implementation(libs.bundles.jetpack.navi)
-    // sharedPreference crypto
-    implementation(libs.security.crypto)
-    // google
-    implementation(libs.material)
-    // ktx (by viewModels)
-    implementation(libs.activity.ktx)
-    implementation(libs.fragment.ktx)
+
     // dagger hilt
     implementation(libs.dagger.hilt)
 
     kapt(libs.dagger.hilt.compiler)
-    // 기초 androidx 라이브러리 ("core-ktx", "constraintlayout", "appcompat", "activity")
-    implementation(libs.bundles.androidx)
 }
