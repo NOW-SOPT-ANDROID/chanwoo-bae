@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+
     // sharedPreference crypto
     implementation(libs.security.crypto)
     implementation(libs.core.ktx)

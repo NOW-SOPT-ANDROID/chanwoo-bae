@@ -1,4 +1,4 @@
-package com.sopt.now.data_remote.dto.response
+package com.sopt.now.data.dto.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

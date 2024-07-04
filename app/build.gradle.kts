@@ -55,7 +55,6 @@ dependencies {
     implementation(project(":data-remote"))
     implementation(project(":data-local"))
     implementation(project(":data"))
-    implementation(project(":core-ui"))
     implementation(project(":feature"))
 
     implementation(libs.security.crypto)

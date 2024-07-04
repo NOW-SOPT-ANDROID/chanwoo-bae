@@ -1,10 +1,10 @@
-package com.sopt.now.data_remote.datasource
+package com.sopt.now.data.datasource.remote
 
 
-import com.sopt.now.data_remote.dto.request.RequestLoginDto
+import com.sopt.now.data.dto.request.RequestLoginDto
+import com.sopt.now.data.dto.response.BaseResponse
+import com.sopt.now.data.dto.response.ResponseMemberInfo
 import com.sopt.now.data_remote.dto.request.RequestSignUpDto
-import com.sopt.now.data_remote.dto.response.ResponseMemberInfo
-import com.sopt.now.data_remote.dto.response.BaseResponse
 import retrofit2.Response
 
 interface LoginDataSource {

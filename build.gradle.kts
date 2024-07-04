@@ -8,3 +8,5 @@ plugins {
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.jetbrainsKotlinJvm) apply false
 }
+
+apply(from = file(path = "gradle/projectDependencyGraph.gradle"))

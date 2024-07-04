@@ -2,7 +2,7 @@ package com.sopt.now.data_local.datasourceimpl
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.sopt.now.data_local.datasource.SharedPreferenceDataSource
+import com.sopt.now.data.datasource.local.SharedPreferenceDataSource
 import com.sopt.now.data_local.dto.UserDto
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -30,17 +31,25 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":data-remote"))
-    implementation(project(":data-local"))
 
     // retrofit
     implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
 
     implementation(libs.dagger.hilt)
 
+    // define a BOM and its version
+    implementation(platform(libs.okhttp.bom))
+
+    // define any required OkHttp artifacts without version
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
 }

@@ -4,10 +4,10 @@ import com.sopt.now.data_remote.api.ApiKeyStorage.INFO
 import com.sopt.now.data_remote.api.ApiKeyStorage.JOIN
 import com.sopt.now.data_remote.api.ApiKeyStorage.LOGIN
 import com.sopt.now.data_remote.api.ApiKeyStorage.MEMBER
-import com.sopt.now.data_remote.dto.request.RequestLoginDto
+import com.sopt.now.data.dto.request.RequestLoginDto
 import com.sopt.now.data_remote.dto.request.RequestSignUpDto
-import com.sopt.now.data_remote.dto.response.BaseResponse
-import com.sopt.now.data_remote.dto.response.ResponseMemberInfo
+import com.sopt.now.data.dto.response.BaseResponse
+import com.sopt.now.data.dto.response.ResponseMemberInfo
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

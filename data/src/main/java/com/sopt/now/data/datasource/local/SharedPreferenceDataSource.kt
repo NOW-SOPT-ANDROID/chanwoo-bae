@@ -1,4 +1,4 @@
-package com.sopt.now.data_local.datasource
+package com.sopt.now.data.datasource.local
 
 import com.sopt.now.data_local.dto.UserDto
 

@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+
     // retrofit
     implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)

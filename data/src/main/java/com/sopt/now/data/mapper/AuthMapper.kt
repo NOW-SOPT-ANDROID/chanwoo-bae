@@ -3,15 +3,14 @@ package com.sopt.now.data.mapper
 
 import com.sopt.now.data_local.dto.UserDto
 import com.sopt.now.data_remote.dto.request.RequestSignUpDto
-import com.sopt.now.data_remote.dto.response.BaseResponse
-import com.sopt.now.data_remote.dto.response.ResponseMemberInfo
+import com.sopt.now.data.dto.response.BaseResponse
+import com.sopt.now.data.dto.response.ResponseMemberInfo
 import com.sopt.now.domain.entity.BaseResponseEntity
 import com.sopt.now.domain.entity.UserEntity
 
 internal fun ResponseMemberInfo.toUserEntity(): UserEntity =
     UserEntity(
         id = authenticationId,
-        password = "",
         nickName = nickname,
         phone = phone
     )

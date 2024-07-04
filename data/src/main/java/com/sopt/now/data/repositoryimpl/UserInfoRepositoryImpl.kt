@@ -1,7 +1,7 @@
 package com.sopt.now.data.repositoryimpl
 
+import com.sopt.now.data.datasource.local.SharedPreferenceDataSource
 import com.sopt.now.data.mapper.toUserEntity
-import com.sopt.now.data_local.datasource.SharedPreferenceDataSource
 import com.sopt.now.data_local.dto.UserDto
 import com.sopt.now.domain.entity.UserEntity
 import com.sopt.now.domain.repository.UserInfoRepository
