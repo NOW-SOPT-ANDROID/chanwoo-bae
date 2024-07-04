@@ -28,21 +28,25 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sopt.now.compose.component.button.CustomButton
-import com.sopt.now.compose.component.text.PageTitle
-import com.sopt.now.compose.component.textfiled.CustomTextFieldWithTitle
-import com.sopt.now.compose.core.view.UiState
-import com.sopt.now.compose.feature.model.User
 import com.sopt.now.compose.feature.util.KeyStorage
+import com.sopt.now.compose.model.User
+import com.sopt.now.compose.ui.component.button.CustomButton
+import com.sopt.now.compose.ui.component.text.PageTitle
+import com.sopt.now.compose.ui.component.textfiled.CustomTextFieldWithTitle
+import com.sopt.now.compose.ui.core.factory.ViewModelFactory
+import com.sopt.now.compose.ui.core.view.UiState
 import com.sopt.now.compose.ui.theme.NOWSOPTAndroidTheme
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class SignUpActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val viewModel: SignUpViewModel = viewModel()
+            val viewModel: SignUpViewModel = viewModel(factory = ViewModelFactory())
             NOWSOPTAndroidTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -69,12 +73,12 @@ fun SignUpScreen(
     var mbti by rememberSaveable { mutableStateOf("") }
 
     val context = LocalContext.current
-    val composeLifecycle = LocalLifecycleOwner.current.lifecycle
+    val composeLifecycle = LocalLifecycleOwner.current
 
 
     LaunchedEffect(composeLifecycle) {
-        viewModel.signUpResponseState.flowWithLifecycle(lifecycle = composeLifecycle)
-            .collect { uiState ->
+        viewModel.signUpResponseState.flowWithLifecycle(lifecycle = composeLifecycle.lifecycle)
+            .onEach { uiState ->
                 when (uiState) {
                     is UiState.Success -> {
                         Toast.makeText(context, uiState.data.toString(), Toast.LENGTH_SHORT).show()
@@ -87,7 +91,7 @@ fun SignUpScreen(
 
                     else -> Unit
                 }
-            }
+            }.launchIn(composeLifecycle.lifecycleScope)
     }
 
     Scaffold(

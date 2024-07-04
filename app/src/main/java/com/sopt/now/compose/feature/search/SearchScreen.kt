@@ -16,12 +16,14 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.sopt.now.compose.component.row.ReqresDummyRow
-import com.sopt.now.compose.core.view.UiState
+import com.sopt.now.compose.ui.component.row.ReqresDummyRow
+import com.sopt.now.compose.ui.core.view.UiState
+import com.sopt.now.compose.ui.core.factory.ViewModelFactory
 
 @Composable
 fun SearchScreen() {
-    val viewModel: SearchViewModel = viewModel()
+    val viewModel: SearchViewModel = viewModel(factory = ViewModelFactory())
+
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 

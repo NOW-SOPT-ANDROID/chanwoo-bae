@@ -2,15 +2,17 @@ package com.sopt.now.compose.feature.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sopt.now.compose.core.view.UiState
-import com.sopt.now.compose.data.api.ApiFactory
-import com.sopt.now.compose.feature.model.ReqresEntity
+import com.sopt.now.compose.domain.ReqresUseCase
+import com.sopt.now.compose.model.ReqresEntity
+import com.sopt.now.compose.ui.core.view.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(
+    private val reqresUseCase: ReqresUseCase
+) : ViewModel() {
 
     private val _getReqresListState = MutableStateFlow<UiState<List<ReqresEntity>>>(UiState.Loading)
     val getReqresListState: StateFlow<UiState<List<ReqresEntity>>>
@@ -18,20 +20,12 @@ class SearchViewModel : ViewModel() {
 
     fun getReqresList(page: Int) {
         viewModelScope.launch {
-            runCatching {
-                ApiFactory.ServicePool.userService.getUserList(page)
-            }.onSuccess { response ->
-                if (response.isSuccessful) {
-                    val reqresUserList = response.body()?.toReqresList()
-                    if (reqresUserList != null) {
-                        _getReqresListState.emit(UiState.Success(reqresUserList))
-                    } else {
-                        _getReqresListState.emit(UiState.Failure("null"))
-                    }
+            reqresUseCase.invoke(page)
+                .onSuccess { result ->
+                    _getReqresListState.emit(UiState.Success(result))
+                }.onFailure {
+                    _getReqresListState.emit(UiState.Failure(it.message.toString()))
                 }
-            }.onFailure { throwable ->
-                _getReqresListState.emit(UiState.Failure(throwable.message.toString()))
-            }
         }
     }
 }
