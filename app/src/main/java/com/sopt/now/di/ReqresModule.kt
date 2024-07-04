@@ -1,8 +1,8 @@
 package com.sopt.now.di
 
+import com.sopt.now.data.datasource.remote.ReqresDataSource
 import com.sopt.now.data.repositoryimpl.ReqresRepositoryImpl
 import com.sopt.now.data_remote.api.ReqresService
-import com.sopt.now.data_remote.datasource.ReqresDataSource
 import com.sopt.now.data_remote.datasourceimpl.ReqresDataSourceImpl
 import com.sopt.now.di.qualifier.REQRES
 import com.sopt.now.domain.repository.ReqresRepository

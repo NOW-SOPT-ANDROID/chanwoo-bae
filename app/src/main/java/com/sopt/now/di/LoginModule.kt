@@ -1,8 +1,8 @@
 package com.sopt.now.di
 
+import com.sopt.now.data.datasource.remote.LoginDataSource
 import com.sopt.now.data.repositoryimpl.LoginRepositoryImpl
 import com.sopt.now.data_remote.api.LoginApiService
-import com.sopt.now.data_remote.datasource.LoginDataSource
 import com.sopt.now.data_remote.datasourceimpl.LoginDataSourceImpl
 import com.sopt.now.di.qualifier.AUTH
 import com.sopt.now.domain.repository.LoginRepository

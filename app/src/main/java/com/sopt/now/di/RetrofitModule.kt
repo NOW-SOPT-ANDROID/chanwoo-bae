@@ -3,7 +3,7 @@ package com.sopt.now.di
 import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sopt.now.BuildConfig
-import com.sopt.now.data_local.datasource.SharedPreferenceDataSource
+import com.sopt.now.data.datasource.local.SharedPreferenceDataSource
 import com.sopt.now.di.qualifier.AUTH
 import com.sopt.now.di.qualifier.REQRES
 import dagger.Module

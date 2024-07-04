@@ -1,6 +1,6 @@
 package com.sopt.now.di
 
-import com.sopt.now.data_local.datasource.SharedPreferenceDataSource
+import com.sopt.now.data.datasource.local.SharedPreferenceDataSource
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
