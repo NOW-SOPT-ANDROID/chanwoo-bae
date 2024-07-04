@@ -1,8 +1,8 @@
 package com.sopt.now.di
 
 import com.sopt.now.data.datasource.local.SharedPreferenceDataSource
-import com.sopt.now.data.datasourceimpl.local.SharedPreferenceDataSourceImpl
 import com.sopt.now.data.repositoryimpl.UserInfoRepositoryImpl
+import com.sopt.now.data_local.datasourceimpl.SharedPreferenceDataSourceImpl
 import com.sopt.now.domain.repository.UserInfoRepository
 import dagger.Binds
 import dagger.Module
@@ -29,6 +29,6 @@ object AuthModule {
         @Singleton
         @Binds
         fun bindsSharedPrefDataSource(sharedPrefDataSource: SharedPreferenceDataSourceImpl):
-            SharedPreferenceDataSource
+                SharedPreferenceDataSource
     }
 }
